@@ -2,14 +2,17 @@
   "name": "ConfirmModal",
   "type": "component",
   "svelteVersion": 5,
-  "description": "Диалог подтверждения на базе Modal: вопрос с кнопками «Отмена» и «ОК» или только уведомление.",
+  "description": "Диалог подтверждения на базе Modal: вопрос с кнопками «Отмена» и подтверждения, флажок, режим уведомления.",
   "props": [
     { "name": "open", "type": "boolean", "required": true, "description": "Показывать окно" },
     { "name": "message", "type": "string", "required": true, "description": "Текст вопроса или уведомления" },
+    { "name": "title", "type": "string", "required": false, "description": "Подпись окна для вспомогательных технологий" },
     { "name": "confirmText", "type": "string", "required": false, "defaultValue": "ОК", "description": "Текст кнопки подтверждения" },
     { "name": "cancelText", "type": "string", "required": false, "defaultValue": "Отмена", "description": "Текст кнопки отмены" },
     { "name": "danger", "type": "boolean", "required": false, "defaultValue": false, "description": "Подтверждение необратимого действия" },
     { "name": "alertOnly", "type": "boolean", "required": false, "defaultValue": false, "description": "Показать только кнопку подтверждения" },
-    { "name": "onresolve", "type": "function", "required": true, "isEvent": true, "arguments": [{ "name": "detail", "type": "{ ok: boolean }", "description": "ok = true, если нажата кнопка подтверждения" }], "description": "Итог диалога" }
+    { "name": "checkboxLabel", "type": "string | null", "required": false, "defaultValue": "null", "description": "Подпись флажка; если не задана, флажка нет" },
+    { "name": "checkboxDefault", "type": "boolean", "required": false, "defaultValue": true, "description": "Исходное состояние флажка" },
+    { "name": "onresolve", "type": "function", "required": true, "isEvent": true, "arguments": [{ "name": "detail", "type": "{ ok: boolean, checked: boolean }", "description": "ok = true при подтверждении, checked = состояние флажка" }], "description": "Итог диалога" }
   ]
 }

@@ -1,6 +1,6 @@
 {
 	"name": "babrs-ui",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Babrs UI: атомарные компоненты Svelte 5, дизайн-токены и CSS для проектов Babrs",
 	"type": "module",
 	"svelte": "./dist/index.js",
