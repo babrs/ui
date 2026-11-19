@@ -1,0 +1,11 @@
+{
+  "name": "shuffle",
+  "type": "utility",
+  "framework": "vanilla-js",
+  "description": "Перемешивает массив алгоритмом Фишера — Йетса и возвращает новый массив.",
+  "parameters": [
+    { "name": "items", "type": "array", "optional": false, "description": "Исходный массив, не изменяется" },
+    { "name": "random", "type": "function", "optional": true, "default": "Math.random", "description": "Источник чисел в диапазоне [0, 1)" }
+  ],
+  "returns": { "type": "array", "description": "Новый перемешанный массив" }
+}

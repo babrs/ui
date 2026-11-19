@@ -1,0 +1,56 @@
+{
+  "name": "CoreDesignTokens",
+  "type": "design-tokens",
+  "framework": "css-variables",
+  "description": "Базовые токены Babrs: палитра, типографика, радиусы, отступы, тени, движение и слои.",
+  "categories": {
+    "colors": {
+      "description": "Палитра бренда Babrs и семантические цвета",
+      "tokens": {
+        "--color-primary": { "value": "#ff8a00", "type": "color", "description": "Основной акцент: кнопки и активные элементы" },
+        "--color-primary-strong": { "value": "#e06f00", "type": "color", "description": "Акцент при наведении на основную кнопку" },
+        "--color-accent": { "value": "#ffb800", "type": "color", "description": "Вторичный акцент: подсветки и декор" },
+        "--color-text": { "value": "#1e2430", "type": "color", "description": "Основной текст" },
+        "--color-bg": { "value": "#fffdf9", "type": "color", "description": "Фон страницы" },
+        "--color-surface": { "value": "#ffffff", "type": "color", "description": "Фон карточек и окон" },
+        "--color-border": { "value": "#e9dfd3", "type": "color", "description": "Границы карточек и разделителей" }
+      }
+    },
+    "spacing": {
+      "description": "Шкала отступов",
+      "tokens": {
+        "--space-sm": { "value": "0.5rem", "type": "dimension", "description": "Отступы внутри компактных элементов" },
+        "--space-md": { "value": "1rem", "type": "dimension", "description": "Базовый отступ между блоками" },
+        "--space-lg": { "value": "1.5rem", "type": "dimension", "description": "Отступы внутри карточек и кнопок" }
+      }
+    },
+    "radii": {
+      "description": "Скругления углов",
+      "tokens": {
+        "--radius-lg": { "value": "24px", "type": "dimension", "description": "Карточки и окна" },
+        "--radius-pill": { "value": "999px", "type": "dimension", "description": "Кнопки и бейджи" }
+      }
+    },
+    "typography": {
+      "description": "Шрифты, размеры и начертания",
+      "tokens": {
+        "--font-primary": { "value": "'DM Sans', system-ui, sans-serif", "type": "font-family", "description": "Основной текст" },
+        "--font-display": { "value": "'Unbounded', system-ui, sans-serif", "type": "font-family", "description": "Заголовки" },
+        "--font-size-md": { "value": "1rem", "type": "dimension", "description": "Базовый размер текста" }
+      }
+    },
+    "shadows": {
+      "description": "Тени для глубины интерфейса",
+      "tokens": {
+        "--shadow-md": { "value": "0 12px 32px rgb(30 36 48 / 0.12)", "type": "shadow", "description": "Приподнятые карточки и окна" }
+      }
+    },
+    "motion": {
+      "description": "Длительности и кривые анимации",
+      "tokens": {
+        "--duration-base": { "value": "240ms", "type": "duration", "description": "Стандартный переход" },
+        "--easing-standard": { "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "type": "number", "description": "Стандартная кривая движения" }
+      }
+    }
+  }
+}

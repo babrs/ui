@@ -1,0 +1,12 @@
+{
+  "name": "AppFooter",
+  "type": "component",
+  "svelteVersion": 5,
+  "description": "Подвал сайта: название, описание, ссылки и строка внизу.",
+  "props": [
+    { "name": "title", "type": "string", "required": true, "description": "Название проекта" },
+    { "name": "tagline", "type": "string", "required": false, "defaultValue": "", "description": "Короткое описание" },
+    { "name": "links", "type": "Array<{ href: string, label: string, external?: boolean }>", "required": false, "defaultValue": "[]", "description": "Ссылки подвала" },
+    { "name": "note", "type": "string", "required": false, "defaultValue": "", "description": "Строка внизу: авторство или юридическая информация" }
+  ]
+}

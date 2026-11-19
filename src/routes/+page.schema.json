@@ -1,0 +1,9 @@
+{
+  "name": "ShowcasePage",
+  "type": "page",
+  "framework": "SvelteKit 2",
+  "svelteVersion": 5,
+  "route": "/",
+  "description": "Витрина Babrs UI: компоненты, галерея, окна, счётчик и токены.",
+  "inputData": { "properties": {}, "required": [] }
+}

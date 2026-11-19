@@ -1,0 +1,12 @@
+{
+  "name": "TabSwitcher",
+  "type": "component",
+  "svelteVersion": 5,
+  "description": "Переключатель разделов в виде пилюль-ссылок. По умолчанию липкий: прячется при прокрутке вниз.",
+  "props": [
+    { "name": "items", "type": "Array<{ id: string, href: string, label: string }>", "required": true, "description": "Вкладки переключателя" },
+    { "name": "active", "type": "string", "required": true, "description": "id активной вкладки" },
+    { "name": "label", "type": "string", "required": true, "description": "Название навигации для вспомогательных технологий" },
+    { "name": "sticky", "type": "boolean", "required": false, "defaultValue": true, "description": "Липкое поведение при прокрутке (attachment stickyDock)" }
+  ]
+}

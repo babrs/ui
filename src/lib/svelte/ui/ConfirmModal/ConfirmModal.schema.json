@@ -1,0 +1,15 @@
+{
+  "name": "ConfirmModal",
+  "type": "component",
+  "svelteVersion": 5,
+  "description": "Диалог подтверждения на базе Modal: вопрос с кнопками «Отмена» и «ОК» или только уведомление.",
+  "props": [
+    { "name": "open", "type": "boolean", "required": true, "description": "Показывать окно" },
+    { "name": "message", "type": "string", "required": true, "description": "Текст вопроса или уведомления" },
+    { "name": "confirmText", "type": "string", "required": false, "defaultValue": "ОК", "description": "Текст кнопки подтверждения" },
+    { "name": "cancelText", "type": "string", "required": false, "defaultValue": "Отмена", "description": "Текст кнопки отмены" },
+    { "name": "danger", "type": "boolean", "required": false, "defaultValue": false, "description": "Подтверждение необратимого действия" },
+    { "name": "alertOnly", "type": "boolean", "required": false, "defaultValue": false, "description": "Показать только кнопку подтверждения" },
+    { "name": "onresolve", "type": "function", "required": true, "isEvent": true, "arguments": [{ "name": "detail", "type": "{ ok: boolean }", "description": "ok = true, если нажата кнопка подтверждения" }], "description": "Итог диалога" }
+  ]
+}

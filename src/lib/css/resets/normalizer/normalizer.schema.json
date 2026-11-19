@@ -1,0 +1,12 @@
+{
+  "name": "AppNormalizer",
+  "type": "reset",
+  "framework": "pure-css",
+  "description": "Нормализация браузерных стилей: box-sizing, обнуление отступов, наследование шрифтов в формах.",
+  "resets": [
+    { "selector": "*, *::before, *::after", "purpose": "border-box и обнуление margin/padding для предсказуемых размеров" },
+    { "selector": "img, picture, svg, video", "purpose": "Блочный вид и ограничение ширины контейнером" },
+    { "selector": "button, input, select, textarea", "purpose": "Наследование шрифта и цвета текста от родителя" },
+    { "selector": "a", "purpose": "Ссылки наследуют цвет текста, подчёркивание задаётся компонентами" }
+  ]
+}

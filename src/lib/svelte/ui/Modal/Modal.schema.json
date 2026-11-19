@@ -1,0 +1,12 @@
+{
+  "name": "Modal",
+  "type": "component",
+  "svelteVersion": 5,
+  "description": "Модальное окно с затемнённым фоном. Закрывается кнопкой, клавишей Escape и нажатием на фон.",
+  "props": [
+    { "name": "labelledby", "type": "string", "required": false, "description": "id элемента с заголовком окна" },
+    { "name": "label", "type": "string", "required": false, "description": "Подпись окна, если заголовка нет" },
+    { "name": "onclose", "type": "function", "required": true, "isEvent": true, "arguments": [], "description": "Закрывает окно" },
+    { "name": "children", "type": "Snippet", "required": true, "isSnippet": true, "arguments": [], "description": "Содержимое окна" }
+  ]
+}

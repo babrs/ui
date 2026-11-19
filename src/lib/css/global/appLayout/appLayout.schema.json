@@ -1,0 +1,22 @@
+{
+  "name": "AppLayoutStyles",
+  "type": "global-styles",
+  "framework": "pure-css",
+  "description": "Базовая типографика тела страницы, контейнер, секции, визуально скрытый текст и фокус.",
+  "baseSelectors": [
+    { "selector": "body", "description": "Шрифт, цвет текста и фон страницы", "dependsOnTokens": ["--font-primary", "--color-text", "--color-bg"] },
+    { "selector": ":focus-visible", "description": "Единый видимый контур фокуса для клавиатуры", "dependsOnTokens": ["--color-info"] }
+  ],
+  "bemBlocks": [
+    {
+      "block": "section",
+      "description": "Вертикальный ритм секции страницы",
+      "elements": [{ "name": "section__title", "description": "Заголовок секции в шрифте Unbounded" }, { "name": "section__lead", "description": "Вводный абзац секции, приглушённый цвет" }]
+    }
+  ],
+  "utilityClasses": [
+    { "className": ".container", "description": "Центрированный контейнер шириной до --container-max" },
+    { "className": ".u-text-center", "description": "Выравнивание текста по центру" },
+    { "className": ".u-visually-hidden", "description": "Скрывает элемент визуально, оставляя его для программ чтения экрана" }
+  ]
+}

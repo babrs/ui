@@ -1,0 +1,15 @@
+{
+  "name": "Button",
+  "type": "component",
+  "svelteVersion": 5,
+  "description": "Кнопка или ссылка-кнопка с вариантами primary, secondary, ghost, danger и размерами md, lg.",
+  "props": [
+    { "name": "variant", "type": "'primary' | 'secondary' | 'ghost' | 'danger'", "required": false, "defaultValue": "primary", "description": "Визуальный вариант кнопки" },
+    { "name": "size", "type": "'md' | 'lg'", "required": false, "defaultValue": "md", "description": "Размер кнопки" },
+    { "name": "href", "type": "string", "required": false, "description": "Адрес: если задан, кнопка рендерится ссылкой" },
+    { "name": "type", "type": "'button' | 'submit' | 'reset'", "required": false, "defaultValue": "button", "description": "Тип кнопки для формы" },
+    { "name": "disabled", "type": "boolean", "required": false, "defaultValue": false, "description": "Недоступна для нажатия" },
+    { "name": "onclick", "type": "function", "required": false, "isEvent": true, "arguments": [{ "name": "event", "type": "MouseEvent", "description": "Событие нажатия" }], "description": "Обработчик нажатия" },
+    { "name": "children", "type": "Snippet", "required": true, "isSnippet": true, "arguments": [], "description": "Содержимое кнопки" }
+  ]
+}

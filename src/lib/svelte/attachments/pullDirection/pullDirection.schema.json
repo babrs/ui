@@ -1,0 +1,11 @@
+{
+  "name": "pullDirection",
+  "type": "utility",
+  "framework": "vanilla-js",
+  "description": "Attachment для Svelte: распознаёт свайп (left, right, up, down) по узлу через pointer, touch или mouse события.",
+  "parameters": [
+    { "name": "handler", "type": "function", "optional": false, "description": "Вызывается с объектом { direction, dx, dy, axis, input, originalEvent }" },
+    { "name": "options", "type": "object", "optional": true, "default": "{}", "description": "threshold (px, по умолчанию 12), continuous, preventScroll, touchAction, ignore" }
+  ],
+  "returns": { "type": "function", "description": "Функция-attachment для {@attach pullDirection(...)}" }
+}

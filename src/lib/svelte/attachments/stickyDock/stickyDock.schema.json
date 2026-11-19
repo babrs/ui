@@ -1,0 +1,10 @@
+{
+  "name": "stickyDock",
+  "type": "utility",
+  "framework": "vanilla-js",
+  "description": "Attachment для Svelte: липкая панель прячется при прокрутке вниз и появляется при прокрутке вверх.",
+  "parameters": [
+    { "name": "options", "type": "object", "optional": true, "default": "{}", "description": "side: 'top' | 'bottom' (по умолчанию 'top'); offset: число или строка CSS (по умолчанию 0)" }
+  ],
+  "returns": { "type": "function", "description": "Функция-attachment для {@attach stickyDock(...)}" }
+}

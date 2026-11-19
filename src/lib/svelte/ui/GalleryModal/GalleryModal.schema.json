@@ -1,0 +1,14 @@
+{
+  "name": "GalleryModal",
+  "type": "component",
+  "svelteVersion": 5,
+  "description": "Модальная галерея с переходами назад и вперёд: кнопки, стрелки клавиатуры и свайп.",
+  "props": [
+    { "name": "items", "type": "Array<any>", "required": true, "description": "Элементы галереи" },
+    { "name": "index", "type": "number", "required": true, "description": "Индекс открытого элемента" },
+    { "name": "labelledby", "type": "string", "required": false, "description": "id заголовка окна" },
+    { "name": "onchange", "type": "function", "required": false, "isEvent": true, "arguments": [{ "name": "index", "type": "number", "description": "Новый индекс" }], "description": "Переход к другому элементу" },
+    { "name": "onclose", "type": "function", "required": true, "isEvent": true, "arguments": [], "description": "Закрывает галерею" },
+    { "name": "item", "type": "Snippet<[any, number]>", "required": true, "isSnippet": true, "arguments": [{ "name": "entry", "type": "any", "description": "Открытый элемент" }, { "name": "index", "type": "number", "description": "Индекс элемента" }], "description": "Содержимое элемента" }
+  ]
+}

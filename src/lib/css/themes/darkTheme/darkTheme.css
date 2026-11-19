@@ -1,0 +1,11 @@
+[data-theme='dark'] {
+	--color-bg: #141311;
+	--color-bg-alt: #1c1a17;
+	--color-surface: #1f1d1a;
+	--color-text: #ede9e4;
+	--color-text-muted: #9e9a94;
+	--color-border: #3d3935;
+	--color-overlay: rgb(0 0 0 / 0.7);
+	--shadow-sm: 0 2px 12px rgb(0 0 0 / 0.25);
+	--shadow-md: 0 12px 32px rgb(0 0 0 / 0.35);
+}

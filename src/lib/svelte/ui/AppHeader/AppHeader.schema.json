@@ -1,0 +1,13 @@
+{
+  "name": "AppHeader",
+  "type": "component",
+  "svelteVersion": 5,
+  "description": "Шапка сайта: логотип, подпись и навигация. При прокрутке вниз прячется, если включено hideOnScroll.",
+  "props": [
+    { "name": "brand", "type": "string", "required": true, "description": "Название проекта" },
+    { "name": "tagline", "type": "string", "required": false, "defaultValue": "", "description": "Подпись под названием" },
+    { "name": "homeHref", "type": "string", "required": false, "defaultValue": "/", "description": "Адрес логотипа" },
+    { "name": "navItems", "type": "Array<{ href: string, label: string, current?: boolean }>", "required": false, "defaultValue": "[]", "description": "Пункты навигации" },
+    { "name": "hideOnScroll", "type": "boolean", "required": false, "defaultValue": true, "description": "Прятать шапку при прокрутке вниз" }
+  ]
+}
