@@ -1,7 +1,8 @@
 <script>
 	import '$lib/css/index.css';
 	import { base } from '$app/paths';
-	import { AppHeader, AppFooter } from '$lib/index.js';
+	import AppHeader from './__components/AppHeader/index.js';
+	import AppFooter from './__components/AppFooter/index.js';
 
 	let { children } = $props();
 </script>

@@ -1,8 +1,5 @@
-export { default as AppFooter } from './AppFooter/index.js';
-export { default as AppHeader } from './AppHeader/index.js';
 export { default as Badge } from './Badge/index.js';
 export { default as Button } from './Button/index.js';
-export { default as Card } from './Card/index.js';
 export { default as CardGrid } from './CardGrid/index.js';
 export { default as ConfirmModal } from './ConfirmModal/index.js';
 export { default as GalleryModal } from './GalleryModal/index.js';

@@ -1,6 +1,7 @@
 <script>
 	import { base } from '$app/paths';
-	import { Button, Badge, Card, CardGrid, ConfirmModal, GalleryModal, HeroBanner, Stepper, TabSwitcher } from '$lib/index.js';
+	import { Button, Badge, CardGrid, ConfirmModal, GalleryModal, HeroBanner, Stepper, TabSwitcher } from '$lib/index.js';
+	import Card from './__components/Card/index.js';
 
 	const samples = [
 		{ id: 'buttons', title: 'Кнопки', text: 'Варианты primary, secondary, ghost и danger, размеры md и lg.' },
