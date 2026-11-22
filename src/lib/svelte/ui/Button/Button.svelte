@@ -4,6 +4,8 @@
 	 * @property {'primary' | 'secondary' | 'ghost' | 'danger'} [variant] - Визуальный вариант кнопки
 	 * @property {'md' | 'lg'} [size] - Размер кнопки
 	 * @property {string} [href] - Адрес: если задан, кнопка рендерится ссылкой
+	 * @property {string} [target] - Окно для ссылки, например _blank
+	 * @property {string} [rel] - Атрибут rel ссылки
 	 * @property {'button' | 'submit' | 'reset'} [type] - Тип кнопки для формы
 	 * @property {boolean} [disabled] - Недоступна для нажатия
 	 * @property {(event: MouseEvent) => void} [onclick] - Обработчик нажатия
@@ -11,11 +13,11 @@
 	 */
 
 	/** @type {Props} */
-	let { variant = 'primary', size = 'md', href, type = 'button', disabled = false, onclick, children } = $props();
+	let { variant = 'primary', size = 'md', href, target, rel, type = 'button', disabled = false, onclick, children } = $props();
 </script>
 
 {#if href}
-	<a class="button button_{variant} button_{size}" class:button_disabled={disabled} {href} aria-disabled={disabled} {onclick}>
+	<a class="button button_{variant} button_{size}" class:button_disabled={disabled} {href} {target} {rel} aria-disabled={disabled} {onclick}>
 		{@render children?.()}
 	</a>
 {:else}

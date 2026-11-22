@@ -7,6 +7,8 @@
     { "name": "variant", "type": "'primary' | 'secondary' | 'ghost' | 'danger'", "required": false, "defaultValue": "primary", "description": "Визуальный вариант кнопки" },
     { "name": "size", "type": "'md' | 'lg'", "required": false, "defaultValue": "md", "description": "Размер кнопки" },
     { "name": "href", "type": "string", "required": false, "description": "Адрес: если задан, кнопка рендерится ссылкой" },
+    { "name": "target", "type": "string", "required": false, "description": "Окно для ссылки, например _blank" },
+    { "name": "rel", "type": "string", "required": false, "description": "Атрибут rel ссылки" },
     { "name": "type", "type": "'button' | 'submit' | 'reset'", "required": false, "defaultValue": "button", "description": "Тип кнопки для формы" },
     { "name": "disabled", "type": "boolean", "required": false, "defaultValue": false, "description": "Недоступна для нажатия" },
     { "name": "onclick", "type": "function", "required": false, "isEvent": true, "arguments": [{ "name": "event", "type": "MouseEvent", "description": "Событие нажатия" }], "description": "Обработчик нажатия" },
