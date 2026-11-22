@@ -1,55 +1,32 @@
-name: gh-pages
+name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
 
-concurrency:
-  group: gh-pages-ui
-  cancel-in-progress: true
-
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-      - name: Собрать выходной каталог и опубликовать в gh-pages
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          cp -r src/lib/css build/styles
-          cp build/styles/tokens/coreTokens/coreTokens.css build/styles/tokens.css
-          cp build/styles/resets/normalizer/normalizer.css build/styles/reset.css
-          cp build/styles/global/appLayout/appLayout.css build/styles/global.css
-          touch build/.nojekyll
-          cd build
-          git init -q -b gh-pages
-          git add -A
-          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -q -m "deploy ${GITHUB_SHA}"
-          git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:gh-pages
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  notify:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Сообщить Babrs/games о новой версии UI
-        env:
-          ORG_ADMIN_TOKEN: ${{ secrets.ORG_ADMIN_TOKEN }}
-        run: |
-          set -euo pipefail
-          curl -fsS -X POST https://api.github.com/repos/Babrs/games/dispatches \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${ORG_ADMIN_TOKEN}" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            -d '{"event_type":"ui-updated"}'
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          force_orphan: true
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
