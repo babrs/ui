@@ -1,6 +1,8 @@
 <script>
 	import { base } from '$app/paths';
-	import { Button, Badge, CardGrid, ConfirmModal, GalleryModal, HeroBanner, Stepper, TabSwitcher } from '$lib/index.js';
+	import { Button, Badge, ConfirmModal, GalleryModal, Stepper, TabSwitcher } from '$lib/index.js';
+	import CardGrid from './__components/CardGrid/index.js';
+	import HeroBanner from './__components/HeroBanner/index.js';
 	import Card from './__components/Card/index.js';
 
 	const samples = [

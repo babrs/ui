@@ -71,13 +71,14 @@
 	}
 
 	.tabs__link:hover {
-		background: var(--color-bg-alt);
-		color: var(--color-text);
+		background: var(--color-primary-soft);
+		color: var(--color-primary-strong);
 	}
 
 	.tabs__link_active,
 	.tabs__link_active:hover {
-		background: var(--color-primary);
+		background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+		box-shadow: 0 12px 28px var(--color-primary-glow);
 		color: var(--color-on-primary);
 	}
 

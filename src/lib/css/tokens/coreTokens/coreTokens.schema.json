@@ -7,13 +7,15 @@
     "colors": {
       "description": "Палитра бренда Babrs и семантические цвета",
       "tokens": {
-        "--color-primary": { "value": "#ff8a00", "type": "color", "description": "Основной акцент: кнопки и активные элементы" },
-        "--color-primary-strong": { "value": "#e06f00", "type": "color", "description": "Акцент при наведении на основную кнопку" },
-        "--color-accent": { "value": "#ffb800", "type": "color", "description": "Вторичный акцент: подсветки и декор" },
-        "--color-text": { "value": "#1e2430", "type": "color", "description": "Основной текст" },
-        "--color-bg": { "value": "#fffdf9", "type": "color", "description": "Фон страницы" },
+        "--color-primary": { "value": "#e54717", "type": "color", "description": "Основной акцент: кнопки и активные элементы" },
+        "--color-primary-strong": { "value": "#bd370f", "type": "color", "description": "Акцент при наведении на основную кнопку" },
+        "--color-accent": { "value": "#f26a3e", "type": "color", "description": "Второй конец градиента акцента: кнопки, вкладки, логотип" },
+        "--color-text": { "value": "#2d2a26", "type": "color", "description": "Основной текст" },
+        "--color-bg": { "value": "#fdf8f4", "type": "color", "description": "Фон страницы" },
         "--color-surface": { "value": "#ffffff", "type": "color", "description": "Фон карточек и окон" },
-        "--color-border": { "value": "#e9dfd3", "type": "color", "description": "Границы карточек и разделителей" }
+        "--color-border": { "value": "#e8dfd5", "type": "color", "description": "Границы карточек и разделителей" },
+        "--color-text-muted": { "value": "#7a756f", "type": "color", "description": "Вторичный текст: подписи и описания" },
+        "--color-primary-glow": { "value": "rgb(229 71 23 / 0.15)", "type": "color", "description": "Свечение акцентных кнопок и вкладок" }
       }
     },
     "spacing": {
@@ -42,7 +44,7 @@
     "shadows": {
       "description": "Тени для глубины интерфейса",
       "tokens": {
-        "--shadow-md": { "value": "0 12px 32px rgb(30 36 48 / 0.12)", "type": "shadow", "description": "Приподнятые карточки и окна" }
+        "--shadow-md": { "value": "0 12px 32px rgb(45 42 38 / 0.08)", "type": "shadow", "description": "Приподнятые карточки и окна" }
       }
     },
     "motion": {

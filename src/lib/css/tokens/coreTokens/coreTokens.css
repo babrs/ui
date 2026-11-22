@@ -1,18 +1,30 @@
 :root {
-	--color-bg: #f8fafc;
-	--color-bg-alt: #f1f5f9;
+	--color-bg: #fdf8f4;
+	--color-bg-alt: #f7f0e8;
 	--color-surface: #ffffff;
-	--color-text: #0f172a;
-	--color-text-muted: #64748b;
-	--color-primary: #ff4400;
-	--color-primary-strong: #d93800;
-	--color-accent: #ff4400;
-	--color-success: #10b981;
-	--color-info: #3b82f6;
-	--color-danger: #ef4444;
+	--color-text: #2d2a26;
+	--color-text-muted: #7a756f;
+	--color-border: #e8dfd5;
+	--color-primary: #e54717;
+	--color-primary-strong: #bd370f;
+	--color-primary-soft: rgb(229 71 23 / 0.08);
+	--color-primary-glow: rgb(229 71 23 / 0.15);
+	--color-accent: #f26a3e;
 	--color-on-primary: #ffffff;
-	--color-border: #e2e8f0;
-	--color-overlay: rgb(15 23 42 / 0.5);
+	--color-success: #5c9a4d;
+	--color-warning: #c4882f;
+	--color-info: #4a7eb5;
+	--color-danger: #c94848;
+	--color-overlay: rgb(45 42 38 / 0.55);
+
+	--color-sand: #f1d8b7;
+	--color-sand-deep: #cfa36b;
+	--color-sky: #cfe8f7;
+	--color-sky-deep: #72a9cb;
+	--color-grass: #c9dca8;
+	--color-grass-deep: #78975a;
+	--color-rose: #e8aaa1;
+	--color-ink: #1e1b18;
 
 	--space-xs: 0.25rem;
 	--space-sm: 0.5rem;
@@ -20,35 +32,39 @@
 	--space-lg: 1.5rem;
 	--space-xl: 2.5rem;
 
-	--radius-sm: 8px;
-	--radius-md: 16px;
+	--radius-sm: 6px;
+	--radius-md: 12px;
 	--radius-lg: 24px;
 	--radius-xl: 36px;
 	--radius-pill: 999px;
 
 	--font-primary: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 	--font-display: 'Unbounded', system-ui, sans-serif;
-	--font-size-sm: 0.875rem;
+	--font-size-xs: 0.6875rem;
+	--font-size-sm: 0.8125rem;
 	--font-size-md: 1rem;
-	--font-size-lg: 1.25rem;
-	--font-size-xl: 1.75rem;
+	--font-size-lg: 1.125rem;
+	--font-size-xl: 1.5rem;
 	--font-size-2xl: clamp(2rem, 5vw, 3rem);
 	--font-weight-regular: 400;
 	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
 	--font-weight-bold: 700;
 	--font-weight-black: 800;
 	--line-height-base: 1.5;
+	--line-height-heading: 1.02;
 
-	--shadow-sm: 0 2px 10px rgb(30 36 48 / 0.06);
-	--shadow-md: 0 12px 32px rgb(30 36 48 / 0.12);
-	--shadow-lg: 0 24px 64px rgb(30 36 48 / 0.18);
+	--shadow-sm: 0 2px 12px rgb(0 0 0 / 0.04);
+	--shadow-md: 0 12px 32px rgb(45 42 38 / 0.08);
+	--shadow-lg: 0 24px 80px rgb(45 42 38 / 0.12);
+	--shadow-floating: 0 22px 56px rgb(45 42 38 / 0.16);
 
 	--duration-fast: 160ms;
 	--duration-base: 240ms;
 	--easing-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
 
 	--header-height: 64px;
-	--container-max: 1200px;
+	--container-max: 1280px;
 	--z-header: 20;
 	--z-modal: 50;
 }

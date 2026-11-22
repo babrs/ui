@@ -36,7 +36,7 @@
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background: linear-gradient(180deg, rgb(30 36 48 / 0.1), rgb(30 36 48 / 0.45));
+		background: linear-gradient(180deg, color-mix(in srgb, var(--color-text) 10%, transparent), color-mix(in srgb, var(--color-text) 45%, transparent));
 	}
 
 	.hero__content {
@@ -55,7 +55,7 @@
 
 	.hero__title {
 		max-width: 18ch;
-		color: #ffffff;
+		color: var(--color-on-primary);
 		font-family: var(--font-display);
 		font-size: var(--font-size-2xl);
 		font-weight: var(--font-weight-black);

@@ -9,7 +9,9 @@
       "tokens": {
         "--color-bg": "#141311",
         "--color-surface": "#1f1d1a",
-        "--color-text": "#ede9e4",
+        "--color-text": "#edeae5",
+        "--color-primary": "#f26a3e",
+        "--color-accent": "#ff865f",
         "--color-text-muted": "#9e9a94",
         "--color-border": "#3d3935"
       }

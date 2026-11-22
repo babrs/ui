@@ -2,10 +2,31 @@
 	--color-bg: #141311;
 	--color-bg-alt: #1c1a17;
 	--color-surface: #1f1d1a;
-	--color-text: #ede9e4;
+	--color-text: #edeae5;
 	--color-text-muted: #9e9a94;
 	--color-border: #3d3935;
+	--color-primary: #f26a3e;
+	--color-primary-strong: #e54717;
+	--color-primary-soft: rgb(242 106 62 / 0.08);
+	--color-primary-glow: rgb(242 106 62 / 0.12);
+	--color-accent: #ff865f;
+	--color-success: #7db56d;
+	--color-warning: #d9a64a;
+	--color-info: #6a9bd1;
+	--color-danger: #e06666;
 	--color-overlay: rgb(0 0 0 / 0.7);
-	--shadow-sm: 0 2px 12px rgb(0 0 0 / 0.25);
-	--shadow-md: 0 12px 32px rgb(0 0 0 / 0.35);
+
+	--color-sand: #3a2e24;
+	--color-sand-deep: #5b4633;
+	--color-sky: #223542;
+	--color-sky-deep: #315a72;
+	--color-grass: #283524;
+	--color-grass-deep: #4f7040;
+	--color-rose: #714541;
+	--color-ink: #f3eee8;
+
+	--shadow-sm: 0 2px 12px rgb(0 0 0 / 0.2);
+	--shadow-md: 0 12px 32px rgb(0 0 0 / 0.24);
+	--shadow-lg: 0 24px 80px rgb(0 0 0 / 0.32);
+	--shadow-floating: 0 22px 56px rgb(0 0 0 / 0.34);
 }
