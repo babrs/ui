@@ -1,0 +1,6 @@
+@layer reset, tokens, global, components, utilities;
+
+@import url('./resets/normalizer/normalizer.css') layer(reset);
+@import url('./tokens/coreTokens/coreTokens.css') layer(tokens);
+@import url('./themes/darkTheme/darkTheme.css') layer(tokens);
+@import url('./global/appLayout/appLayout.css') layer(global);

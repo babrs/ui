@@ -1,0 +1,18 @@
+{
+  "name": "DarkTheme",
+  "type": "theme",
+  "framework": "pure-css",
+  "description": "Тёмная тема: переопределяет цвета фона, текста, границ и тени.",
+  "scopeSelector": "[data-theme=\"dark\"]",
+  "overrides": {
+    "colors": {
+      "tokens": {
+        "--color-bg": "#141311",
+        "--color-surface": "#1f1d1a",
+        "--color-text": "#ede9e4",
+        "--color-text-muted": "#9e9a94",
+        "--color-border": "#3d3935"
+      }
+    }
+  }
+}
