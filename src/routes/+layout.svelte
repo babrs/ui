@@ -1,28 +1,32 @@
 <script>
 	import '$lib/css/index.css';
 	import { base } from '$app/paths';
+	import { ToastStack } from '$lib/index.js';
 	import AppHeader from './__components/AppHeader/index.js';
 	import AppFooter from './__components/AppFooter/index.js';
 
 	let { children } = $props();
+
+	const navItems = [
+		{ href: '#alerts', label: 'Алерты' },
+		{ href: '#typography', label: 'Типографика' },
+		{ href: '#buttons', label: 'Кнопки' },
+		{ href: '#forms', label: 'Формы' },
+		{ href: '#cards', label: 'Карточки' },
+		{ href: '#interactive', label: 'Интерактив' }
+	];
 </script>
 
 <svelte:head>
-	<title>Babrs UI — компоненты и стили</title>
-	<meta name="description" content="Babrs UI: атомарные компоненты Svelte 5, дизайн-токены и CSS для проектов экосистемы Babrs." />
+	<title>Babrs UI — киты интерфейса</title>
+	<meta
+		name="description"
+		content="Babrs UI: библиотека атомарных Svelte 5 компонентов, дизайн-токенов и CSS для проектов Babrs."
+	/>
 	<link rel="icon" href="{base}/favicon.svg" type="image/svg+xml" />
 </svelte:head>
 
-<AppHeader
-	brand="Babrs UI"
-	tagline="компоненты и стили"
-	homeHref="{base}/"
-	navItems={[
-		{ href: `${base}/#components`, label: 'Компоненты' },
-		{ href: `${base}/#styles`, label: 'Стили' },
-		{ href: 'https://github.com/Babrs/ui', label: 'GitHub' }
-	]}
-/>
+<AppHeader brand="Babrs UI" tagline="единый кит организации" homeHref="{base}/" {navItems} />
 
 <main>
 	{@render children()}
@@ -30,10 +34,11 @@
 
 <AppFooter
 	title="Babrs UI"
-	tagline="Библиотека для сайтов и игр экосистемы Babrs"
+	tagline="атомарные компоненты Svelte 5"
 	links={[
-		{ href: 'https://github.com/Babrs/ui', label: 'Исходный код', external: true },
-		{ href: 'https://babrs.github.io/games/', label: 'Игры Babrs' }
+		{ href: `${base}/`, label: 'Каталог' },
+		{ href: 'https://github.com/Babrs/ui', label: 'GitHub' }
 	]}
-	note="Svelte 5, чистый JavaScript, нативный CSS"
 />
+
+<ToastStack />

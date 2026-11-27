@@ -1,77 +1,81 @@
 <script>
 	/**
 	 * @typedef {Object} LinkItem
-	 * @property {string} href - Адрес ссылки
-	 * @property {string} label - Текст ссылки
-	 * @property {boolean} [external] - Открывать в новой вкладке
+	 * @property {string} href - Ссылка
+	 * @property {string} label - Текст
 	 */
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {string} title - Название проекта
-	 * @property {string} [tagline] - Короткое описание
-	 * @property {LinkItem[]} [links] - Ссылки подвала
-	 * @property {string} [note] - Строка внизу: авторство или юридическая информация
+	 * @property {string} title - Название
+	 * @property {string} [tagline] - Подзаголовок
+	 * @property {Array<LinkItem>} [links] - Ссылки
 	 */
 
 	/** @type {Props} */
-	let { title, tagline = '', links = [], note = '' } = $props();
+	let { title, tagline, links = [] } = $props();
 </script>
 
-<footer class="app-footer">
-	<div class="container app-footer__inner">
-		<p class="app-footer__title">{title}</p>
-		{#if tagline}<p class="app-footer__tagline">{tagline}</p>{/if}
-		{#if links.length}
-			<ul class="app-footer__links">
-				{#each links as link (link.href)}
-					<li>
-						<a href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noopener noreferrer' : undefined}>
-							{link.label}
-						</a>
-					</li>
-				{/each}
-			</ul>
-		{/if}
-		{#if note}<p class="app-footer__note">{note}</p>{/if}
+<footer class="site-footer">
+	<div class="site-footer__inner container">
+		<div>
+			<p class="site-footer__title">{title}</p>
+			{#if tagline}<p class="site-footer__tagline">{tagline}</p>{/if}
+		</div>
+
+		<nav class="site-footer__links" aria-label="Ссылки в подвале">
+			{#each links as link (link.href)}
+				<a href={link.href}>{link.label}</a>
+			{/each}
+		</nav>
+
+		<p class="site-footer__note">Svelte 5 · открытый код</p>
 	</div>
 </footer>
 
 <style>
-	.app-footer {
-		margin-top: auto;
-		padding-block: var(--space-xl);
+	.site-footer {
+		margin-top: var(--space-2xl);
+		padding: var(--space-xl) 0;
 		border-top: 1px solid var(--color-border);
 		background: var(--color-bg-alt);
 	}
 
-	.app-footer__inner {
-		display: grid;
-		gap: var(--space-sm);
-		justify-items: center;
-		text-align: center;
-	}
-
-	.app-footer__title {
-		font-family: var(--font-display);
-		font-weight: var(--font-weight-black);
-	}
-
-	.app-footer__tagline,
-	.app-footer__note {
-		color: var(--color-text-muted);
-		font-size: var(--font-size-sm);
-	}
-
-	.app-footer__links {
+	.site-footer__inner {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
+		align-items: center;
+		justify-content: space-between;
 		gap: var(--space-md);
-		list-style: none;
 	}
 
-	.app-footer__links a {
-		font-weight: var(--font-weight-medium);
+	.site-footer__title {
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: var(--font-size-md);
+		font-weight: var(--font-weight-bold);
+		color: var(--color-text);
+	}
+
+	.site-footer__tagline,
+	.site-footer__note {
+		margin: 0;
+		font-size: var(--font-size-sm);
+		color: var(--color-text-muted);
+	}
+
+	.site-footer__links {
+		display: flex;
+		gap: var(--space-lg);
+	}
+
+	.site-footer__links a {
+		font-size: var(--font-size-sm);
+		color: var(--color-text-muted);
+		text-decoration: none;
+	}
+
+	.site-footer__links a:hover {
+		color: var(--color-primary);
 	}
 </style>

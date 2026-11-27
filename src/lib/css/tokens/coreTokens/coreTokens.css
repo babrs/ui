@@ -1,22 +1,48 @@
+/**
+ * Babrs UI — ядро дизайн-токенов.
+ * Палитра, геометрия и типографика взяты из UI-Kit (Travelynx):
+ * тёплый песочный фон, терракотовый акцент, DM Sans для текста
+ * и Unbounded для всех заголовков.
+ */
+
 :root {
+	color-scheme: light;
+
+	/* ---------- Поверхности и текст ---------- */
 	--color-bg: #fdf8f4;
 	--color-bg-alt: #f7f0e8;
 	--color-surface: #ffffff;
+	--color-card: var(--color-surface);
 	--color-text: #2d2a26;
 	--color-text-muted: #7a756f;
 	--color-border: #e8dfd5;
+	--color-overlay: rgb(45 42 38 / 0.55);
+
+	/* ---------- Акцент ---------- */
 	--color-primary: #e54717;
+	--color-primary-light: #f26a3e;
 	--color-primary-strong: #bd370f;
-	--color-primary-soft: rgb(229 71 23 / 0.08);
-	--color-primary-glow: rgb(229 71 23 / 0.15);
 	--color-accent: #f26a3e;
 	--color-on-primary: #ffffff;
+	--color-primary-soft: rgb(229 71 23 / 0.08);
+	--color-primary-glow: rgb(229 71 23 / 0.15);
+
+	/* ---------- Статусы ---------- */
 	--color-success: #5c9a4d;
 	--color-warning: #c4882f;
 	--color-info: #4a7eb5;
 	--color-danger: #c94848;
-	--color-overlay: rgb(45 42 38 / 0.55);
 
+	--color-success-soft: color-mix(in srgb, var(--color-success) 10%, transparent);
+	--color-success-line: color-mix(in srgb, var(--color-success) 22%, transparent);
+	--color-warning-soft: color-mix(in srgb, var(--color-warning) 10%, transparent);
+	--color-warning-line: color-mix(in srgb, var(--color-warning) 22%, transparent);
+	--color-info-soft: color-mix(in srgb, var(--color-info) 10%, transparent);
+	--color-info-line: color-mix(in srgb, var(--color-info) 22%, transparent);
+	--color-danger-soft: color-mix(in srgb, var(--color-danger) 10%, transparent);
+	--color-danger-line: color-mix(in srgb, var(--color-danger) 22%, transparent);
+
+	/* ---------- Иллюстративная палитра ---------- */
 	--color-sand: #f1d8b7;
 	--color-sand-deep: #cfa36b;
 	--color-sky: #cfe8f7;
@@ -26,45 +52,80 @@
 	--color-rose: #e8aaa1;
 	--color-ink: #1e1b18;
 
+	/* ---------- Отступы ---------- */
+	--space-2xs: 0.125rem;
 	--space-xs: 0.25rem;
 	--space-sm: 0.5rem;
 	--space-md: 1rem;
 	--space-lg: 1.5rem;
 	--space-xl: 2.5rem;
+	--space-2xl: 4rem;
 
+	/* ---------- Скругления ---------- */
+	--radius-xs: 4px;
 	--radius-sm: 6px;
 	--radius-md: 12px;
+	--radius-card: 18px;
 	--radius-lg: 24px;
 	--radius-xl: 36px;
 	--radius-pill: 999px;
+	--radius-field: var(--radius-md);
 
+	/* ---------- Типографика ---------- */
 	--font-primary: 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-	--font-display: 'Unbounded', system-ui, sans-serif;
-	--font-size-xs: 0.6875rem;
-	--font-size-sm: 0.8125rem;
-	--font-size-md: 1rem;
-	--font-size-lg: 1.125rem;
-	--font-size-xl: 1.5rem;
+	--font-display: 'Unbounded', 'DM Sans', system-ui, sans-serif;
+	--font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+	--font-size-2xs: 0.6875rem; /* 11px */
+	--font-size-xs: 0.6875rem; /* 11px — историческое имя, используется в games */
+	--font-size-sm: 0.8125rem; /* 13px */
+	--font-size-base: 0.875rem; /* 14px — базовый размер интерфейса */
+	--font-size-md: 1rem; /* 16px */
+	--font-size-lg: 1.125rem; /* 18px */
+	--font-size-xl: 1.5rem; /* 24px */
 	--font-size-2xl: clamp(2rem, 5vw, 3rem);
+
+	--font-size-h1: clamp(2.25rem, 4.5vw, 3rem); /* 36 → 48px */
+	--font-size-h2: clamp(1.875rem, 3.5vw, 2.25rem); /* 30 → 36px */
+	--font-size-h3: 1.5rem; /* 24px */
+	--font-size-h4: 1.125rem; /* 18px */
+	--font-size-h5: 1rem;
+	--font-size-h6: 0.875rem;
+
+	--font-weight-light: 300;
 	--font-weight-regular: 400;
 	--font-weight-medium: 500;
 	--font-weight-semibold: 600;
 	--font-weight-bold: 700;
 	--font-weight-black: 800;
-	--line-height-base: 1.5;
-	--line-height-heading: 1.02;
 
+	--line-height-tight: 1.15;
+	--line-height-heading: 1.15;
+	--line-height-base: 1.5;
+	--tracking-display: -0.02em;
+	--tracking-caps: 0.08em;
+
+	/* ---------- Тени ---------- */
 	--shadow-sm: 0 2px 12px rgb(0 0 0 / 0.04);
 	--shadow-md: 0 12px 32px rgb(45 42 38 / 0.08);
 	--shadow-lg: 0 24px 80px rgb(45 42 38 / 0.12);
 	--shadow-floating: 0 22px 56px rgb(45 42 38 / 0.16);
+	--shadow-pop: 0 12px 32px rgb(0 0 0 / 0.15);
+	--shadow-toast: 0 8px 24px rgb(0 0 0 / 0.12);
+	--shadow: var(--shadow-sm);
 
+	/* ---------- Движение ---------- */
 	--duration-fast: 160ms;
 	--duration-base: 240ms;
+	--duration-slow: 300ms;
 	--easing-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
 
+	/* ---------- Каркас ---------- */
 	--header-height: 64px;
 	--container-max: 1280px;
+	--container-pad: 1.5rem;
 	--z-header: 20;
 	--z-modal: 50;
+	--z-popover: 60;
+	--z-toast: 100;
 }

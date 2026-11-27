@@ -1,4 +1,6 @@
 <script>
+	import Icon from '../Icon/index.js';
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {number} value - Текущее значение (двусторонняя связь)
@@ -12,19 +14,37 @@
 	/** @type {Props} */
 	let { value = $bindable(1), min = 1, max = 20, step = 1, label, onchange } = $props();
 
-	/** @param {number} direction */
-	function change(direction) {
-		const next = Math.min(max, Math.max(min, value + direction * step));
-		if (next === value) return;
-		value = next;
-		onchange?.(next);
+	/** @param {number} next */
+	function set(next) {
+		const clamped = Math.min(max, Math.max(min, next));
+		if (clamped === value) return;
+		value = clamped;
+		onchange?.(clamped);
 	}
 </script>
 
 <div class="stepper" role="group" aria-label={label}>
-	<button class="stepper__button" type="button" aria-label="Уменьшить" disabled={value <= min} onclick={() => change(-1)}>−</button>
+	<button
+		class="stepper__button"
+		type="button"
+		aria-label="Уменьшить"
+		disabled={value <= min}
+		onclick={() => set(value - step)}
+	>
+		<Icon name="minus" size={18} />
+	</button>
+
 	<output class="stepper__value" aria-live="polite">{value}</output>
-	<button class="stepper__button" type="button" aria-label="Увеличить" disabled={value >= max} onclick={() => change(1)}>+</button>
+
+	<button
+		class="stepper__button"
+		type="button"
+		aria-label="Увеличить"
+		disabled={value >= max}
+		onclick={() => set(value + step)}
+	>
+		<Icon name="plus" size={18} />
+	</button>
 </div>
 
 <style>
@@ -32,21 +52,32 @@
 		display: inline-flex;
 		align-items: center;
 		gap: var(--space-xs);
+		padding: var(--space-xs);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		background: var(--color-surface);
 	}
 
 	.stepper__button {
-		display: grid;
-		width: 44px;
-		height: 44px;
-		place-items: center;
-		border: 0;
-		border-radius: var(--radius-md);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
 		background: var(--color-bg-alt);
 		color: var(--color-text);
-		font-size: 1.375rem;
-		font-weight: var(--font-weight-bold);
-		line-height: 1;
 		cursor: pointer;
+		transition:
+			background-color var(--duration-fast) var(--easing-standard),
+			color var(--duration-fast) var(--easing-standard);
+	}
+
+	.stepper__button:hover:not(:disabled) {
+		background: var(--color-primary);
+		color: var(--color-on-primary);
 	}
 
 	.stepper__button:disabled {
@@ -55,10 +86,11 @@
 	}
 
 	.stepper__value {
-		min-width: 3ch;
+		min-width: 2.5ch;
+		font-family: var(--font-display);
+		font-size: var(--font-size-md);
+		font-weight: var(--font-weight-semibold);
 		text-align: center;
-		font-size: var(--font-size-lg);
-		font-weight: var(--font-weight-bold);
-		font-variant-numeric: tabular-nums;
+		color: var(--color-text);
 	}
 </style>

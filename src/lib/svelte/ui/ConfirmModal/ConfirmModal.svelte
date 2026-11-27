@@ -1,24 +1,25 @@
 <script>
 	import Modal from '../Modal/index.js';
 	import Button from '../Button/index.js';
+	import Checkbox from '../Checkbox/index.js';
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {boolean} open - Показывать окно
+	 * @property {boolean} open - Показывать окно (двусторонняя связь)
 	 * @property {string} message - Текст вопроса или уведомления
-	 * @property {string} [title] - Подпись окна для вспомогательных технологий
+	 * @property {string} [title] - Заголовок окна
 	 * @property {string} [confirmText] - Текст кнопки подтверждения
 	 * @property {string} [cancelText] - Текст кнопки отмены
 	 * @property {boolean} [danger] - Подтверждение необратимого действия
 	 * @property {boolean} [alertOnly] - Показать только кнопку подтверждения
 	 * @property {string | null} [checkboxLabel] - Подпись флажка; без подписи флажка нет
 	 * @property {boolean} [checkboxDefault] - Исходное состояние флажка
-	 * @property {(detail: { ok: boolean, checked: boolean }) => void} onresolve - Итог диалога
+	 * @property {(detail: { ok: boolean, checked: boolean }) => void} [onresolve] - Итог диалога
 	 */
 
 	/** @type {Props} */
 	let {
-		open,
+		open = $bindable(false),
 		message,
 		title,
 		confirmText = 'ОК',
@@ -26,71 +27,45 @@
 		danger = false,
 		alertOnly = false,
 		checkboxLabel = null,
-		checkboxDefault = true,
+		checkboxDefault = false,
 		onresolve
 	} = $props();
 
-	let checked = $state(true);
+	let checked = $state(checkboxDefault);
 
-	$effect(() => {
-		if (open) checked = checkboxDefault;
-	});
+	/** @param {boolean} ok */
+	function resolve(ok) {
+		onresolve?.({ ok, checked });
+		open = false;
+	}
 </script>
 
-{#if open}
-	<Modal label={title ?? message} onclose={() => onresolve({ ok: false, checked })}>
-		<div class="confirm">
-			<p class="confirm__message">{message}</p>
-			{#if checkboxLabel}
-				<label class="confirm__check">
-					<input type="checkbox" bind:checked />
-					<span>{checkboxLabel}</span>
-				</label>
-			{/if}
-			<div class="confirm__actions">
-				{#if !alertOnly}
-					<Button variant="secondary" onclick={() => onresolve({ ok: false, checked })}>{cancelText}</Button>
-				{/if}
-				<Button variant={danger ? 'danger' : 'primary'} onclick={() => onresolve({ ok: true, checked })}>{confirmText}</Button>
-			</div>
+<Modal bind:open size="sm" {title} hideClose onclose={() => resolve(false)}>
+	<p class="confirm__message">{message}</p>
+
+	{#if checkboxLabel}
+		<div class="confirm__checkbox">
+			<Checkbox bind:checked label={checkboxLabel} />
 		</div>
-	</Modal>
-{/if}
+	{/if}
+
+	{#snippet footer()}
+		{#if !alertOnly}
+			<Button variant="ghost" onclick={() => resolve(false)}>{cancelText}</Button>
+		{/if}
+		<Button variant={danger ? 'danger' : 'primary'} onclick={() => resolve(true)}>{confirmText}</Button>
+	{/snippet}
+</Modal>
 
 <style>
-	.confirm {
-		display: grid;
-		gap: var(--space-lg);
-		padding: var(--space-xl) var(--space-lg) var(--space-lg);
-		text-align: center;
-	}
-
 	.confirm__message {
-		font-size: var(--font-size-lg);
-		font-weight: var(--font-weight-medium);
-		line-height: 1.4;
-		white-space: pre-wrap;
+		margin: 0;
+		font-size: var(--font-size-base);
+		line-height: var(--line-height-base);
+		color: var(--color-text-muted);
 	}
 
-	.confirm__check {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		gap: var(--space-sm);
-		min-height: 44px;
-		cursor: pointer;
-	}
-
-	.confirm__check input {
-		width: 20px;
-		height: 20px;
-		accent-color: var(--color-primary);
-	}
-
-	.confirm__actions {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: var(--space-sm);
+	.confirm__checkbox {
+		margin-top: var(--space-md);
 	}
 </style>

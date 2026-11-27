@@ -1,20 +1,32 @@
+/**
+ * Тёмная тема. Включается атрибутом [data-theme="dark"] на <html>.
+ * Значения совпадают с тёмной палитрой UI-Kit.
+ */
+
 [data-theme='dark'] {
+	color-scheme: dark;
+
 	--color-bg: #141311;
 	--color-bg-alt: #1c1a17;
 	--color-surface: #1f1d1a;
+	--color-card: var(--color-bg-alt);
 	--color-text: #edeae5;
 	--color-text-muted: #9e9a94;
 	--color-border: #3d3935;
+	--color-overlay: rgb(0 0 0 / 0.7);
+
 	--color-primary: #f26a3e;
+	--color-primary-light: #ff865f;
 	--color-primary-strong: #e54717;
+	--color-accent: #ff865f;
+	--color-on-primary: #141311;
 	--color-primary-soft: rgb(242 106 62 / 0.08);
 	--color-primary-glow: rgb(242 106 62 / 0.12);
-	--color-accent: #ff865f;
+
 	--color-success: #7db56d;
 	--color-warning: #d9a64a;
 	--color-info: #6a9bd1;
 	--color-danger: #e06666;
-	--color-overlay: rgb(0 0 0 / 0.7);
 
 	--color-sand: #3a2e24;
 	--color-sand-deep: #5b4633;
@@ -29,4 +41,7 @@
 	--shadow-md: 0 12px 32px rgb(0 0 0 / 0.24);
 	--shadow-lg: 0 24px 80px rgb(0 0 0 / 0.32);
 	--shadow-floating: 0 22px 56px rgb(0 0 0 / 0.34);
+	--shadow-pop: 0 12px 32px rgb(0 0 0 / 0.45);
+	--shadow-toast: 0 8px 24px rgb(0 0 0 / 0.4);
+	--shadow: var(--shadow-sm);
 }

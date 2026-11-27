@@ -1,17 +1,20 @@
+/**
+ * Базовый слой приложения: фон, шрифт, фокус, скроллбары.
+ */
+
 body {
-	min-height: 100vh;
+	min-height: 100dvh;
 	font-family: var(--font-primary);
 	font-size: var(--font-size-md);
 	line-height: var(--line-height-base);
 	color: var(--color-text);
 	background: var(--color-bg);
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	overscroll-behavior-y: none;
-}
-
-.container {
-	width: min(100% - 2rem, var(--container-max));
-	margin-inline: auto;
+	transition:
+		background-color var(--duration-slow) var(--easing-standard),
+		color var(--duration-slow) var(--easing-standard);
 }
 
 .section {
@@ -23,6 +26,7 @@ body {
 	font-size: var(--font-size-xl);
 	font-weight: var(--font-weight-black);
 	line-height: 1.1;
+	letter-spacing: var(--tracking-display);
 }
 
 .section__lead {
@@ -30,22 +34,42 @@ body {
 	color: var(--color-text-muted);
 }
 
-.u-text-center {
-	text-align: center;
-}
-
-.u-visually-hidden {
-	position: absolute !important;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-	clip: rect(0 0 0 0);
-	white-space: nowrap;
-}
-
 :focus-visible {
-	outline: 3px solid var(--color-info);
+	outline: 3px solid var(--color-primary);
 	outline-offset: 2px;
+	border-radius: var(--radius-xs);
+}
+
+::selection {
+	background: var(--color-primary-glow);
+	color: var(--color-text);
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: transparent;
+	border-radius: 10px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+	background: var(--color-border);
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: transparent transparent;
+}
+
+*:hover {
+	scrollbar-color: var(--color-border) transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -53,6 +77,8 @@ body {
 	*::before,
 	*::after {
 		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 	}
 }

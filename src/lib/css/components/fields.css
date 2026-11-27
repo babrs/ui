@@ -1,0 +1,241 @@
+/**
+ * Общий слой полей формы: инпут, текстовое поле, селект, чекбокс, радио, свитч.
+ * Компоненты формы используют эти классы, чтобы вид был единым.
+ */
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+	min-width: 0;
+}
+
+.field__label {
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-medium);
+	color: var(--color-text);
+}
+
+.field__label_required::after {
+	content: ' *';
+	color: var(--color-danger);
+}
+
+.field__control {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.field__input,
+.field__textarea,
+.field__select {
+	width: 100%;
+	padding: 0.75rem 1rem;
+	border: 2px solid var(--color-border);
+	border-radius: var(--radius-field);
+	background: var(--color-card);
+	color: var(--color-text);
+	font-family: inherit;
+	font-size: var(--font-size-base);
+	line-height: 1.4;
+	transition:
+		border-color var(--duration-fast) var(--easing-standard),
+		box-shadow var(--duration-fast) var(--easing-standard),
+		background-color var(--duration-fast) var(--easing-standard);
+}
+
+.field__input::placeholder,
+.field__textarea::placeholder {
+	color: var(--color-text-muted);
+	opacity: 1;
+}
+
+.field__input:focus,
+.field__textarea:focus,
+.field__select:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 4px var(--color-primary-glow);
+}
+
+.field__input:disabled,
+.field__textarea:disabled,
+.field__select:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.field__input_error,
+.field__textarea_error,
+.field__select_error {
+	border-color: var(--color-danger);
+}
+
+.field__input_error:focus,
+.field__textarea_error:focus,
+.field__select_error:focus {
+	border-color: var(--color-danger);
+	box-shadow: 0 0 0 4px var(--color-danger-soft);
+}
+
+.field__input_success,
+.field__textarea_success,
+.field__select_success {
+	border-color: var(--color-success);
+}
+
+.field__input_success:focus,
+.field__textarea_success:focus,
+.field__select_success:focus {
+	border-color: var(--color-success);
+	box-shadow: 0 0 0 4px var(--color-success-soft);
+}
+
+.field__textarea {
+	min-height: 88px;
+	resize: vertical;
+}
+
+.field__select {
+	appearance: none;
+	padding-right: 2.75rem;
+	cursor: pointer;
+}
+
+.field__select-icon {
+	position: absolute;
+	right: 0.875rem;
+	top: 50%;
+	transform: translateY(-50%);
+	pointer-events: none;
+	color: var(--color-text-muted);
+}
+
+.field__hint {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
+}
+
+.field__error {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	font-size: var(--font-size-sm);
+	color: var(--color-danger);
+}
+
+.field__success {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xs);
+	font-size: var(--font-size-sm);
+	color: var(--color-success);
+}
+
+/* Чекбокс и радио */
+.check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 0.9375rem;
+	color: var(--color-text);
+	cursor: pointer;
+}
+
+.check_inline_disabled,
+.check:has(input:disabled) {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.check input[type='checkbox'],
+.check input[type='radio'] {
+	width: 1.1rem;
+	height: 1.1rem;
+	margin: 0;
+	accent-color: var(--color-primary);
+	cursor: inherit;
+	flex-shrink: 0;
+}
+
+/* Переключатель */
+.switch {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75rem;
+	font-size: 0.9375rem;
+	color: var(--color-text);
+	cursor: pointer;
+}
+
+.switch input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+.switch__track {
+	position: relative;
+	width: 52px;
+	height: 28px;
+	border-radius: 26px;
+	background: var(--color-border);
+	transition: background-color var(--duration-slow) var(--easing-standard);
+	flex-shrink: 0;
+}
+
+.switch__track::before {
+	content: '';
+	position: absolute;
+	left: 3px;
+	bottom: 3px;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+	transition: transform var(--duration-slow) var(--easing-standard);
+}
+
+.switch input:checked + .switch__track {
+	background: var(--color-primary);
+}
+
+.switch input:checked + .switch__track::before {
+	transform: translateX(24px);
+}
+
+.switch input:focus-visible + .switch__track {
+	box-shadow: 0 0 0 4px var(--color-primary-glow);
+}
+
+.switch:has(input:disabled) {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Радиогруппа */
+.radio-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	border: none;
+	padding: 0;
+}
+
+.radio-group_horizontal {
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1.25rem;
+}
+
+.radio-group__legend {
+	margin-bottom: 0.75rem;
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-medium);
+	color: var(--color-text);
+	padding: 0;
+}

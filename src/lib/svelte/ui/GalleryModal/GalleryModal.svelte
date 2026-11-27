@@ -1,156 +1,194 @@
 <script>
-	import Modal from '../Modal/index.js';
-	import pullDirection from '../../attachments/pullDirection/index.js';
+	import Icon from '../Icon/index.js';
 
 	/**
 	 * @typedef {Object} Props
 	 * @property {Array<any>} items - Элементы галереи
-	 * @property {number} index - Индекс открытого элемента
+	 * @property {number} index - Индекс открытого элемента (двусторонняя связь)
 	 * @property {string} [labelledby] - id заголовка окна
 	 * @property {(index: number) => void} [onchange] - Вызывается при переходе к другому элементу
-	 * @property {() => void} onclose - Закрывает галерею
-	 * @property {import('svelte').Snippet<[any, number]>} item - Сниппет содержимого элемента
+	 * @property {() => void} [onclose] - Закрывает галерею
+	 * @property {import('svelte').Snippet<[any, number]>} [item] - Содержимое элемента
 	 */
 
 	/** @type {Props} */
-	let { items, index, labelledby, onchange, onclose, item } = $props();
+	let { items = [], index = $bindable(0), labelledby, onchange, onclose, item } = $props();
 
-	let direction = $state('next');
-	let total = $derived(items.length);
+	/** @type {HTMLDialogElement | undefined} */
+	let dialog = $state();
 
-	function next() {
-		direction = 'next';
-		onchange?.((index + 1) % total);
+	$effect(() => {
+		const element = dialog;
+		if (element && !element.open) element.showModal();
+	});
+
+	const current = $derived(items[index]);
+
+	/** @param {string} src */
+	function srcOf(value) {
+		if (typeof value === 'string') return value;
+		return value?.src ?? '';
 	}
 
-	function prev() {
-		direction = 'prev';
-		onchange?.((index - 1 + total) % total);
+	/** @param {number} next */
+	function go(next) {
+		if (!items.length) return;
+		index = (next + items.length) % items.length;
+		onchange?.(index);
 	}
 
-	/** @param {{ direction: string }} gesture */
-	function handleGesture({ direction: swipe }) {
-		if (swipe === 'left') next();
-		if (swipe === 'right') prev();
+	function close() {
+		if (dialog?.open) dialog.close();
+		onclose?.();
 	}
 
 	/** @param {KeyboardEvent} event */
 	function handleKeydown(event) {
-		if (event.key === 'ArrowRight') {
+		if (event.key === 'ArrowRight') go(index + 1);
+		if (event.key === 'ArrowLeft') go(index - 1);
+		if (event.key === 'Escape') {
 			event.preventDefault();
-			next();
-		}
-
-		if (event.key === 'ArrowLeft') {
-			event.preventDefault();
-			prev();
+			close();
 		}
 	}
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
 
-<Modal {labelledby} {onclose}>
-	{#if total}
-		<div class="gallery">
-			{#key index}
-				<div class="gallery__stage gallery__stage_{direction}">
-					<div class="gallery__media" {@attach pullDirection(handleGesture, { threshold: 15 })}>
-						{@render item(items[index], index)}
-					</div>
-				</div>
-			{/key}
+<dialog
+	bind:this={dialog}
+	class="lightbox"
+	aria-labelledby={labelledby}
+	oncancel={(event) => {
+		event.preventDefault();
+		close();
+	}}
+	onclick={(event) => event.target === dialog && close()}
+>
+	<div class="lightbox__stage">
+		<button class="lightbox__close" type="button" aria-label="Закрыть галерею" onclick={close}>
+			<Icon name="x" size={18} />
+		</button>
 
-			<div class="gallery__bar">
-				<button class="gallery__nav" type="button" aria-label="Предыдущий" onclick={prev}>
-					<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-						<path d="M30 10L16 24L30 38" />
-					</svg>
-				</button>
-				<span class="gallery__counter">{index + 1} / {total}</span>
-				<button class="gallery__nav" type="button" aria-label="Следующий" onclick={next}>
-					<svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-						<path d="M18 10L32 24L18 38" />
-					</svg>
-				</button>
-			</div>
-		</div>
-	{/if}
-</Modal>
+		{#if items.length > 1}
+			<button class="lightbox__nav lightbox__nav_prev" type="button" aria-label="Предыдущее изображение" onclick={() => go(index - 1)}>
+				<Icon name="chevron-left" size={22} />
+			</button>
+			<button class="lightbox__nav lightbox__nav_next" type="button" aria-label="Следующее изображение" onclick={() => go(index + 1)}>
+				<Icon name="chevron-right" size={22} />
+			</button>
+		{/if}
+
+		{#if item}
+			{@render item(current, index)}
+		{:else}
+			<img src={srcOf(current)} alt={current?.alt ?? ''} />
+		{/if}
+
+		{#if items.length > 1}
+			<span class="lightbox__counter">{index + 1} / {items.length}</span>
+		{/if}
+	</div>
+</dialog>
 
 <style>
-	.gallery {
-		display: grid;
-		gap: var(--space-md);
-		padding: var(--space-lg);
+	.lightbox {
+		position: fixed;
+		inset: 0;
+		margin: auto;
+		max-width: 95vw;
+		max-height: 95vh;
+		padding: 0;
+		border: none;
+		background: transparent;
+		box-shadow: none;
+		overflow: visible;
 	}
 
-	.gallery__stage {
-		animation: gallery-in var(--duration-base) var(--easing-standard);
+	.lightbox::backdrop {
+		background: rgb(0 0 0 / 0.95);
 	}
 
-	.gallery__stage_next {
-		--gallery-offset: 24px;
-	}
-
-	.gallery__stage_prev {
-		--gallery-offset: -24px;
-	}
-
-	.gallery__media {
-		touch-action: pan-y;
-	}
-
-	.gallery__bar {
+	.lightbox__stage {
+		position: relative;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		gap: var(--space-md);
+		justify-content: center;
 	}
 
-	.gallery__nav {
-		display: grid;
-		width: 48px;
-		height: 48px;
-		place-items: center;
-		border: 0;
-		border-radius: var(--radius-pill);
-		background: var(--color-bg-alt);
-		color: var(--color-text);
+	.lightbox__stage :global(img) {
+		max-width: 90vw;
+		max-height: 80vh;
+		object-fit: contain;
+		border-radius: var(--radius-md);
+	}
+
+	.lightbox__close {
+		position: absolute;
+		top: -12px;
+		right: -12px;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: var(--color-text);
+		color: var(--color-bg);
 		cursor: pointer;
 	}
 
-	.gallery__nav svg {
-		width: 24px;
-		height: 24px;
-		fill: none;
-		stroke: currentColor;
-		stroke-width: 3;
-		stroke-linecap: round;
-		stroke-linejoin: round;
+	.lightbox__nav {
+		position: absolute;
+		top: 50%;
+		z-index: 10;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		padding: 0;
+		border: none;
+		border-radius: 50%;
+		background: rgb(255 255 255 / 0.15);
+		color: #fff;
+		cursor: pointer;
+		transform: translateY(-50%);
+		transition: background-color var(--duration-fast) var(--easing-standard);
 	}
 
-	.gallery__counter {
-		color: var(--color-text-muted);
-		font-weight: var(--font-weight-bold);
-		font-variant-numeric: tabular-nums;
+	.lightbox__nav:hover {
+		background: rgb(255 255 255 / 0.25);
 	}
 
-	@keyframes gallery-in {
-		from {
-			opacity: 0;
-			transform: translateX(var(--gallery-offset, 24px));
+	.lightbox__nav_prev {
+		left: -60px;
+	}
+
+	.lightbox__nav_next {
+		right: -60px;
+	}
+
+	.lightbox__counter {
+		position: absolute;
+		bottom: -40px;
+		left: 50%;
+		transform: translateX(-50%);
+		color: #fff;
+		font-size: var(--font-size-base);
+		opacity: 0.7;
+	}
+
+	@media (max-width: 900px) {
+		.lightbox__nav_prev {
+			left: 8px;
 		}
 
-		to {
-			opacity: 1;
-			transform: none;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.gallery__stage {
-			animation: none;
+		.lightbox__nav_next {
+			right: 8px;
 		}
 	}
 </style>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Байкал">
+	<defs>
+		<linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#cfe8f7" />
+			<stop offset="1" stop-color="#72a9cb" />
+		</linearGradient>
+	</defs>
+	<rect width="400" height="300" fill="url(#g1)" />
+	<path d="M0 220 L90 150 L160 210 L240 120 L330 200 L400 160 L400 300 L0 300 Z" fill="#1e3d4a" opacity="0.35" />
+	<circle cx="310" cy="70" r="34" fill="#1e3d4a" opacity="0.18" />
+</svg>

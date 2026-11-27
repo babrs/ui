@@ -1,0 +1,109 @@
+/**
+ * Утилиты раскладки. Минимальный набор: контейнер, сетки, стек, разделители.
+ */
+
+.container {
+	width: min(100% - (var(--container-pad) * 2), var(--container-max));
+	margin-inline: auto;
+}
+
+.container_wide {
+	max-width: none;
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.items-start {
+	align-items: flex-start;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.gap-1 {
+	gap: var(--space-xs);
+}
+
+.gap-2 {
+	gap: var(--space-sm);
+}
+
+.gap-3 {
+	gap: var(--space-md);
+}
+
+.gap-4 {
+	gap: var(--space-lg);
+}
+
+.grid {
+	display: grid;
+	gap: var(--space-lg);
+}
+
+.grid-2 {
+	display: grid;
+	gap: var(--space-lg);
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid-3 {
+	display: grid;
+	gap: var(--space-lg);
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.grid-4 {
+	display: grid;
+	gap: var(--space-lg);
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}
+
+.divider {
+	height: 1px;
+	border: none;
+	background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+	margin: var(--space-lg) 0;
+}
+
+.muted {
+	color: var(--color-text-muted);
+}
+
+.u-text-center {
+	text-align: center;
+}
+
+.u-visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.u-hidden {
+	display: none !important;
+}

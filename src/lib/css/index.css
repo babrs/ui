@@ -1,6 +1,15 @@
-@layer reset, tokens, global, components, utilities;
+/**
+ * Точка входа стилей Babrs UI.
+ * Порядок слоёв: сброс → токены → база → утилиты.
+ * Стили компонентов подключаются самими компонентами.
+ */
+
+@layer reset, tokens, base, components, utilities;
 
 @import url('./resets/normalizer/normalizer.css') layer(reset);
 @import url('./tokens/coreTokens/coreTokens.css') layer(tokens);
 @import url('./themes/darkTheme/darkTheme.css') layer(tokens);
-@import url('./global/appLayout/appLayout.css') layer(global);
+@import url('./global/appLayout/appLayout.css') layer(base);
+@import url('./typography/typography.css') layer(base);
+@import url('./components/fields.css') layer(components);
+@import url('./utilities/utilities.css') layer(utilities);

@@ -1,6 +1,4 @@
 <script>
-	import stickyDock from '../../attachments/stickyDock/index.js';
-
 	/**
 	 * @typedef {Object} TabItem
 	 * @property {string} id - Идентификатор вкладки
@@ -10,87 +8,74 @@
 
 	/**
 	 * @typedef {Object} Props
-	 * @property {TabItem[]} items - Вкладки переключателя
+	 * @property {Array<TabItem>} items - Вкладки переключателя
 	 * @property {string} active - id активной вкладки
 	 * @property {string} label - Название навигации для вспомогательных технологий
 	 * @property {boolean} [sticky] - Липкое поведение при прокрутке
 	 */
 
 	/** @type {Props} */
-	let { items, active, label, sticky = true } = $props();
+	let { items = [], active, label, sticky = true } = $props();
 </script>
 
-<section class="tabs-wrap" aria-label={label} {@attach sticky ? stickyDock({ offset: 16 }) : () => {}}>
-	<div class="container">
-		<nav class="tabs">
-			{#each items as tab (tab.id)}
-				<a class="tabs__link" class:tabs__link_active={tab.id === active} href={tab.href} aria-current={tab.id === active ? 'page' : undefined}>
-					{tab.label}
-				</a>
-			{/each}
-		</nav>
-	</div>
-</section>
+<nav class="tab-switcher" class:tab-switcher_sticky={sticky} aria-label={label}>
+	{#each items as item (item.id)}
+		<a
+			class="tab-switcher__link"
+			class:tab-switcher__link_active={item.id === active}
+			href={item.href}
+			aria-current={item.id === active ? 'page' : undefined}
+		>
+			{item.label}
+		</a>
+	{/each}
+</nav>
 
 <style>
-	.tabs-wrap {
-		position: relative;
-		z-index: 10;
-		padding-block: var(--space-md);
-	}
-
-	.tabs {
+	.tab-switcher {
 		display: flex;
-		width: fit-content;
-		max-width: 100%;
-		margin-inline: auto;
-		padding: 0.35rem;
+		gap: var(--space-xs);
+		padding: var(--space-xs);
 		border: 1px solid var(--color-border);
 		border-radius: var(--radius-pill);
-		background: color-mix(in srgb, var(--color-surface) 80%, transparent);
-		box-shadow: var(--shadow-md);
-		backdrop-filter: blur(16px);
+		background: var(--color-bg-alt);
+		overflow-x: auto;
+		scrollbar-width: none;
 	}
 
-	.tabs__link {
-		display: inline-flex;
-		min-width: 132px;
-		min-height: 42px;
-		align-items: center;
-		justify-content: center;
-		padding: 0 var(--space-lg);
+	.tab-switcher::-webkit-scrollbar {
+		display: none;
+	}
+
+	.tab-switcher_sticky {
+		position: sticky;
+		top: calc(var(--header-height) + var(--space-sm));
+		z-index: 5;
+	}
+
+	.tab-switcher__link {
+		flex: 1;
+		padding: 0.5rem 1rem;
 		border-radius: var(--radius-pill);
 		color: var(--color-text-muted);
-		font-size: var(--font-size-sm);
-		font-weight: var(--font-weight-bold);
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-medium);
+		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
 		transition:
-			color var(--duration-fast),
-			background-color var(--duration-fast);
+			background-color var(--duration-fast) var(--easing-standard),
+			color var(--duration-fast) var(--easing-standard);
 	}
 
-	.tabs__link:hover {
-		background: var(--color-primary-soft);
-		color: var(--color-primary-strong);
+	.tab-switcher__link:hover {
+		color: var(--color-text);
+		text-decoration: none;
 	}
 
-	.tabs__link_active,
-	.tabs__link_active:hover {
-		background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-		box-shadow: 0 12px 28px var(--color-primary-glow);
-		color: var(--color-on-primary);
-	}
-
-	@media (max-width: 520px) {
-		.tabs {
-			width: 100%;
-		}
-
-		.tabs__link {
-			flex: 1;
-			min-width: 0;
-			padding: 0 var(--space-sm);
-		}
+	.tab-switcher__link_active {
+		background: var(--color-surface);
+		color: var(--color-primary);
+		box-shadow: var(--shadow-sm);
 	}
 </style>

@@ -1,0 +1,133 @@
+/**
+ * Типографика кита: Unbounded для всех заголовков, DM Sans для текста.
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-display);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-heading);
+	letter-spacing: var(--tracking-display);
+	color: var(--color-text);
+	text-wrap: balance;
+	margin-bottom: 0.5em;
+}
+
+h1 {
+	font-size: var(--font-size-h1);
+	font-weight: var(--font-weight-bold);
+}
+
+h2 {
+	font-size: var(--font-size-h2);
+}
+
+h3 {
+	font-size: var(--font-size-h3);
+}
+
+h4 {
+	font-size: var(--font-size-h4);
+}
+
+h5 {
+	font-size: var(--font-size-h5);
+}
+
+h6 {
+	font-size: var(--font-size-h6);
+	letter-spacing: 0;
+}
+
+p {
+	font-size: var(--font-size-md);
+	line-height: var(--line-height-base);
+	color: var(--color-text-muted);
+	margin-bottom: 1rem;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+
+small,
+.text-small {
+	font-size: var(--font-size-sm);
+	color: var(--color-text-muted);
+}
+
+strong,
+b {
+	font-weight: var(--font-weight-semibold);
+	color: var(--color-text);
+}
+
+a {
+	color: var(--color-primary);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+	transition: color var(--duration-fast) var(--easing-standard);
+}
+
+a:hover {
+	color: var(--color-primary-strong);
+	text-decoration-thickness: 2px;
+}
+
+ul,
+ol {
+	padding-left: 1.5rem;
+	color: var(--color-text-muted);
+}
+
+li + li {
+	margin-top: 0.25rem;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+	margin: var(--space-xl) 0;
+}
+
+blockquote {
+	border-left: 3px solid var(--color-primary);
+	padding-left: var(--space-md);
+	color: var(--color-text-muted);
+	font-style: italic;
+}
+
+code,
+kbd,
+pre {
+	font-family: var(--font-mono);
+	font-size: 0.875em;
+}
+
+code {
+	padding: 0.15em 0.4em;
+	border-radius: var(--radius-xs);
+	background: var(--color-bg-alt);
+	color: var(--color-text);
+}
+
+.lead {
+	font-size: var(--font-size-lg);
+	line-height: 1.55;
+	color: var(--color-text-muted);
+}
+
+.eyebrow {
+	display: inline-block;
+	font-family: var(--font-display);
+	font-size: var(--font-size-2xs);
+	font-weight: var(--font-weight-semibold);
+	letter-spacing: var(--tracking-caps);
+	text-transform: uppercase;
+	color: var(--color-primary);
+}

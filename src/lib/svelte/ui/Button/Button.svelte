@@ -1,27 +1,67 @@
 <script>
 	/**
 	 * @typedef {Object} Props
-	 * @property {'primary' | 'secondary' | 'ghost' | 'danger'} [variant] - Визуальный вариант кнопки
-	 * @property {'md' | 'lg'} [size] - Размер кнопки
-	 * @property {string} [href] - Адрес: если задан, кнопка рендерится ссылкой
+	 * @property {'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success'} [variant] - Визуальный вариант
+	 * @property {'sm' | 'md' | 'lg' | 'xl'} [size] - Размер
+	 * @property {string} [href] - Адрес: если задан, рендерится ссылка
 	 * @property {string} [target] - Окно для ссылки, например _blank
 	 * @property {string} [rel] - Атрибут rel ссылки
 	 * @property {'button' | 'submit' | 'reset'} [type] - Тип кнопки для формы
 	 * @property {boolean} [disabled] - Недоступна для нажатия
+	 * @property {boolean} [loading] - Показывает спиннер и блокирует нажатие
+	 * @property {boolean} [iconOnly] - Квадратная кнопка только под иконку
+	 * @property {boolean} [block] - Растянуть на всю ширину контейнера
+	 * @property {string} [label] - Доступное имя для кнопки-иконки
 	 * @property {(event: MouseEvent) => void} [onclick] - Обработчик нажатия
 	 * @property {import('svelte').Snippet} children - Содержимое кнопки
 	 */
 
 	/** @type {Props} */
-	let { variant = 'primary', size = 'md', href, target, rel, type = 'button', disabled = false, onclick, children } = $props();
+	let {
+		variant = 'primary',
+		size = 'md',
+		href,
+		target,
+		rel,
+		type = 'button',
+		disabled = false,
+		loading = false,
+		iconOnly = false,
+		block = false,
+		label,
+		onclick,
+		children
+	} = $props();
+
+	const classes = $derived(
+		[
+			'button',
+			`button_${variant}`,
+			`button_${size}`,
+			iconOnly ? 'button_icon' : '',
+			block ? 'button_block' : '',
+			loading ? 'button_loading' : ''
+		]
+			.filter(Boolean)
+			.join(' ')
+	);
 </script>
 
 {#if href}
-	<a class="button button_{variant} button_{size}" class:button_disabled={disabled} {href} {target} {rel} aria-disabled={disabled} {onclick}>
+	<a
+		class={classes}
+		{ href}
+		{target}
+		{rel}
+		aria-label={label}
+		aria-disabled={disabled || loading}
+		tabindex={disabled || loading ? -1 : undefined}
+		onclick={disabled || loading ? undefined : onclick}
+	>
 		{@render children?.()}
 	</a>
 {:else}
-	<button class="button button_{variant} button_{size}" {type} {disabled} {onclick}>
+	<button class={classes} {type} disabled={disabled || loading} aria-busy={loading} aria-label={label} {onclick}>
 		{@render children?.()}
 	</button>
 {/if}
@@ -32,69 +72,177 @@
 		align-items: center;
 		justify-content: center;
 		gap: var(--space-sm);
-		min-height: 44px;
-		padding: 0 var(--space-lg);
+		padding: 0.75rem 1.25rem;
 		border: 2px solid transparent;
-		border-radius: var(--radius-pill);
+		border-radius: var(--radius-md);
+		background: transparent;
+		color: var(--color-text);
 		font-family: inherit;
-		font-weight: var(--font-weight-bold);
-		line-height: 1;
+		font-size: var(--font-size-base);
+		font-weight: var(--font-weight-semibold);
+		line-height: 1.2;
+		text-align: center;
 		text-decoration: none;
+		white-space: nowrap;
 		cursor: pointer;
 		transition:
-			transform var(--duration-fast) var(--easing-standard),
-			background-color var(--duration-fast) var(--easing-standard);
-	}
-
-	.button:hover:not(:disabled) {
-		transform: translateY(-1px);
-	}
-
-	.button:active:not(:disabled) {
-		transform: translateY(0);
+			background-color var(--duration-fast) var(--easing-standard),
+			border-color var(--duration-fast) var(--easing-standard),
+			color var(--duration-fast) var(--easing-standard),
+			opacity var(--duration-fast) var(--easing-standard);
 	}
 
 	.button:disabled,
-	.button_disabled {
+	.button[aria-disabled='true'] {
 		opacity: 0.5;
 		cursor: not-allowed;
 		pointer-events: none;
 	}
 
+	/* Варианты */
 	.button_primary {
-		background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-		box-shadow: 0 12px 28px var(--color-primary-glow);
+		border-color: var(--color-primary);
+		background: var(--color-primary);
 		color: var(--color-on-primary);
 	}
 
-	.button_primary:hover:not(:disabled) {
-		box-shadow: 0 18px 36px var(--color-primary-glow);
+	.button_primary:hover {
+		border-color: var(--color-primary-strong);
+		background: var(--color-primary-strong);
 	}
 
 	.button_secondary {
-		border-color: var(--color-primary);
-		background: var(--color-surface);
-		color: var(--color-text);
+		border-color: var(--color-text);
+		background: var(--color-text);
+		color: var(--color-bg);
 	}
 
-	.button_ghost {
+	.button_secondary:hover {
+		opacity: 0.85;
+	}
+
+	.button_outline {
+		border-color: var(--color-border);
 		background: transparent;
 		color: var(--color-text);
 	}
 
-	.button_danger {
-		background: var(--color-danger);
-		color: var(--color-on-primary);
+	.button_outline:hover {
+		border-color: var(--color-primary);
+		background: var(--color-primary-glow);
+		color: var(--color-primary);
 	}
 
-	.button_md {
-		font-size: var(--font-size-md);
+	.button_ghost {
+		border-color: transparent;
+		background: transparent;
+		color: var(--color-text);
+	}
+
+	.button_ghost:hover {
+		background: var(--color-primary-glow);
+		color: var(--color-primary);
+	}
+
+	.button_danger {
+		border-color: var(--color-danger);
+		background: var(--color-danger);
+		color: #fff;
+	}
+
+	.button_danger:hover {
+		opacity: 0.9;
+	}
+
+	.button_success {
+		border-color: var(--color-success);
+		background: var(--color-success);
+		color: #fff;
+	}
+
+	.button_success:hover {
+		opacity: 0.9;
+	}
+
+	/* Размеры */
+	.button_sm {
+		padding: 0.5rem 0.875rem;
+		font-size: var(--font-size-sm);
 	}
 
 	.button_lg {
-		min-height: 56px;
-		padding: 0 var(--space-xl);
+		padding: 1rem 1.75rem;
+		font-size: var(--font-size-md);
+	}
+
+	.button_xl {
+		padding: 1.25rem 2rem;
 		font-size: var(--font-size-lg);
+	}
+
+	/* Модификаторы */
+	.button_icon {
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0;
+	}
+
+	.button_icon.button_sm {
+		width: 2.25rem;
+		height: 2.25rem;
+	}
+
+	.button_icon.button_lg {
+		width: 3.25rem;
+		height: 3.25rem;
+	}
+
+	.button_icon.button_xl {
+		width: 3.75rem;
+		height: 3.75rem;
+	}
+
+	.button_block {
+		width: 100%;
+	}
+
+	/* Загрузка */
+	.button_loading {
+		position: relative;
+		color: transparent !important;
+	}
+
+	.button_loading::after {
+		content: '';
+		position: absolute;
+		width: 18px;
+		height: 18px;
+		border: 2px solid transparent;
+		border-top-color: var(--color-text);
+		border-radius: 50%;
+		animation: button-spin 0.8s linear infinite;
+	}
+
+	.button_primary.button_loading::after,
+	.button_secondary.button_loading::after,
+	.button_danger.button_loading::after,
+	.button_success.button_loading::after {
+		border-top-color: currentColor;
+	}
+
+	.button_primary.button_loading::after,
+	.button_secondary.button_loading::after {
+		border-top-color: var(--color-on-primary);
+	}
+
+	.button_secondary.button_loading::after {
+		border-top-color: var(--color-bg);
+	}
+
+	@keyframes button-spin {
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {

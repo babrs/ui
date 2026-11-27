@@ -1,0 +1,10 @@
+{
+  "name": "smartHeader",
+  "type": "utility",
+  "framework": "vanilla-js",
+  "description": "Attachment для Svelte ({@attach smartHeader}): умный хэдер, который плавно скрывается при прокрутке вниз и появляется с фоном при прокрутке вверх.",
+  "parameters": [
+    { "name": "options", "type": "object", "optional": true, "default": "{}", "description": "topOffset: число (отступ сверху, по умолчанию 0); hideDistance: число (высота скрытия, по умолчанию высота ноды); onhide: функция (callback при скрытии)" }
+  ],
+  "returns": { "type": "function", "description": "Функция-attachment для {@attach smartHeader(...)}" }
+}
