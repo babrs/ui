@@ -17,7 +17,7 @@
 
 	--color-primary: #f26a3e;
 	--color-primary-light: #ff865f;
-	--color-primary-strong: #e54717;
+	--color-primary-strong: #ff865f;
 	--color-accent: #ff865f;
 	--color-on-primary: #141311;
 	--color-primary-soft: rgb(242 106 62 / 0.08);
@@ -27,6 +27,18 @@
 	--color-warning: #d9a64a;
 	--color-info: #6a9bd1;
 	--color-danger: #e06666;
+
+	/* На тёмном фоне светлые статусные оттенки сами годятся в текст */
+	--color-success-strong: #8fc380;
+	--color-warning-strong: #e0b05c;
+	--color-info-strong: #7faad9;
+	--color-danger-strong: #e87c7c;
+
+	/* Текст поверх сплошной заливки статуса — тёмный, не белый */
+	--color-on-success: #141311;
+	--color-on-warning: #141311;
+	--color-on-info: #141311;
+	--color-on-danger: #141311;
 
 	--color-sand: #3a2e24;
 	--color-sand-deep: #5b4633;

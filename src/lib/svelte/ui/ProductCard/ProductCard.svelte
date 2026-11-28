@@ -81,7 +81,7 @@
 	}
 
 	.product-card:hover {
-		border-color: var(--color-primary);
+		border-color: var(--color-primary-strong);
 		box-shadow: var(--shadow-md);
 	}
 
@@ -151,7 +151,7 @@
 		font-family: var(--font-display);
 		font-size: 1.25rem;
 		font-weight: var(--font-weight-bold);
-		color: var(--color-primary);
+		color: var(--color-primary-strong);
 	}
 
 	.product-card__price small {

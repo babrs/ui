@@ -102,7 +102,7 @@
 	}
 
 	.dropdown__trigger:hover {
-		border-color: var(--color-primary);
+		border-color: var(--color-primary-strong);
 	}
 
 	.dropdown__menu {
@@ -142,7 +142,7 @@
 
 	.dropdown__item:hover {
 		background: var(--color-primary-soft);
-		color: var(--color-primary);
+		color: var(--color-primary-strong);
 	}
 
 	.dropdown__item :global(svg) {
@@ -150,7 +150,7 @@
 	}
 
 	.dropdown__item:hover :global(svg) {
-		color: var(--color-primary);
+		color: var(--color-primary-strong);
 	}
 
 	.dropdown__item_danger:hover {

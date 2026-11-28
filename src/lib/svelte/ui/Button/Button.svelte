@@ -1,4 +1,7 @@
 <script>
+	import { getContext } from 'svelte';
+	import { BUTTON_GROUP } from '../ButtonGroup/context.js';
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'success'} [variant] - Визуальный вариант
@@ -33,10 +36,14 @@
 		children
 	} = $props();
 
+	/** Вариант, заданный ButtonGroup (если группа его задаёт), перекрывает свой. */
+	const group = getContext(BUTTON_GROUP);
+	const resolvedVariant = $derived(group?.variant ?? variant);
+
 	const classes = $derived(
 		[
 			'button',
-			`button_${variant}`,
+			`button_${resolvedVariant}`,
 			`button_${size}`,
 			iconOnly ? 'button_icon' : '',
 			block ? 'button_block' : '',
@@ -72,7 +79,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: var(--space-sm);
-		padding: 0.75rem 1.25rem;
+		padding: 0.375rem 1rem;
 		border: 2px solid transparent;
 		border-radius: var(--radius-md);
 		background: transparent;
@@ -130,7 +137,7 @@
 	.button_outline:hover {
 		border-color: var(--color-primary);
 		background: var(--color-primary-glow);
-		color: var(--color-primary);
+		color: var(--color-primary-strong);
 	}
 
 	.button_ghost {
@@ -141,13 +148,13 @@
 
 	.button_ghost:hover {
 		background: var(--color-primary-glow);
-		color: var(--color-primary);
+		color: var(--color-primary-strong);
 	}
 
 	.button_danger {
 		border-color: var(--color-danger);
 		background: var(--color-danger);
-		color: #fff;
+		color: var(--color-on-danger);
 	}
 
 	.button_danger:hover {
@@ -157,7 +164,7 @@
 	.button_success {
 		border-color: var(--color-success);
 		background: var(--color-success);
-		color: #fff;
+		color: var(--color-on-success);
 	}
 
 	.button_success:hover {
@@ -166,40 +173,40 @@
 
 	/* Размеры */
 	.button_sm {
-		padding: 0.5rem 0.875rem;
+		padding: 0.25rem 0.75rem;
 		font-size: var(--font-size-sm);
 	}
 
 	.button_lg {
-		padding: 1rem 1.75rem;
+		padding: 0.5rem 1.25rem;
 		font-size: var(--font-size-md);
 	}
 
 	.button_xl {
-		padding: 1.25rem 2rem;
+		padding: 0.625rem 1.5rem;
 		font-size: var(--font-size-lg);
 	}
 
 	/* Модификаторы */
 	.button_icon {
-		width: 2.75rem;
-		height: 2.75rem;
+		width: 2.5rem;
+		height: 2.25rem;
 		padding: 0;
 	}
 
 	.button_icon.button_sm {
-		width: 2.25rem;
-		height: 2.25rem;
+		width: 2rem;
+		height: 1.75rem;
 	}
 
 	.button_icon.button_lg {
-		width: 3.25rem;
-		height: 3.25rem;
+		width: 3rem;
+		height: 2.5rem;
 	}
 
 	.button_icon.button_xl {
-		width: 3.75rem;
-		height: 3.75rem;
+		width: 3.5rem;
+		height: 3rem;
 	}
 
 	.button_block {
@@ -231,8 +238,10 @@
 	}
 
 	.button_primary.button_loading::after,
-	.button_secondary.button_loading::after {
-		border-top-color: var(--color-on-primary);
+	.button_secondary.button_loading::after,
+	.button_success.button_loading::after,
+	.button_danger.button_loading::after {
+		border-top-color: currentColor;
 	}
 
 	.button_secondary.button_loading::after {

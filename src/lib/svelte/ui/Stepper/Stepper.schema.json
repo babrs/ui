@@ -2,13 +2,62 @@
   "name": "Stepper",
   "type": "component",
   "svelteVersion": 5,
-  "description": "Счётчик с кнопками «−» и «+» в заданных границах.",
+  "description": "Счётчик с кнопками «−» и «+» по краям и редактируемым полем ввода значения по центру.",
   "props": [
-    { "name": "value", "type": "number", "required": true, "isBindable": true, "description": "Текущее значение (двусторонняя связь)" },
-    { "name": "min", "type": "number", "required": false, "defaultValue": 1, "description": "Минимальное значение" },
-    { "name": "max", "type": "number", "required": false, "defaultValue": 20, "description": "Максимальное значение" },
-    { "name": "step", "type": "number", "required": false, "defaultValue": 1, "description": "Шаг изменения" },
-    { "name": "label", "type": "string", "required": true, "description": "Название счётчика для вспомогательных технологий" },
-    { "name": "onchange", "type": "function", "required": false, "isEvent": true, "arguments": [{ "name": "value", "type": "number", "description": "Новое значение" }], "description": "Вызывается после изменения" }
+    {
+      "name": "value",
+      "type": "number",
+      "required": true,
+      "isBindable": true,
+      "description": "Текущее значение (двусторонняя связь)"
+    },
+    {
+      "name": "min",
+      "type": "number",
+      "required": false,
+      "defaultValue": 1,
+      "description": "Минимальное значение"
+    },
+    {
+      "name": "max",
+      "type": "number",
+      "required": false,
+      "defaultValue": 20,
+      "description": "Максимальное значение"
+    },
+    {
+      "name": "step",
+      "type": "number",
+      "required": false,
+      "defaultValue": 1,
+      "description": "Шаг изменения"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "required": true,
+      "description": "Название счётчика для вспомогательных технологий"
+    },
+    {
+      "name": "width",
+      "type": "number | string",
+      "required": false,
+      "defaultValue": "fit-content",
+      "description": "Ширина контролла: число (px) или любое CSS-значение"
+    },
+    {
+      "name": "onchange",
+      "type": "function",
+      "required": false,
+      "isEvent": true,
+      "arguments": [
+        {
+          "name": "value",
+          "type": "number",
+          "description": "Новое значение"
+        }
+      ],
+      "description": "Вызывается после изменения"
+    }
   ]
 }

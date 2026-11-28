@@ -75,7 +75,7 @@
 
 	.tab-switcher__link_active {
 		background: var(--color-surface);
-		color: var(--color-primary);
+		color: var(--color-primary-strong);
 		box-shadow: var(--shadow-sm);
 	}
 </style>

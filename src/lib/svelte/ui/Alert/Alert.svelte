@@ -108,11 +108,11 @@
 
 	.alert_info .alert__icon {
 		background: color-mix(in srgb, var(--color-info) 15%, transparent);
-		color: var(--color-info);
+		color: var(--color-info-strong);
 	}
 
 	.alert_info :global(h4) {
-		color: var(--color-info);
+		color: var(--color-info-strong);
 	}
 
 	.alert_success {
@@ -122,11 +122,11 @@
 
 	.alert_success .alert__icon {
 		background: color-mix(in srgb, var(--color-success) 15%, transparent);
-		color: var(--color-success);
+		color: var(--color-success-strong);
 	}
 
 	.alert_success :global(h4) {
-		color: var(--color-success);
+		color: var(--color-success-strong);
 	}
 
 	.alert_warning {
@@ -136,11 +136,11 @@
 
 	.alert_warning .alert__icon {
 		background: color-mix(in srgb, var(--color-warning) 15%, transparent);
-		color: var(--color-warning);
+		color: var(--color-warning-strong);
 	}
 
 	.alert_warning :global(h4) {
-		color: var(--color-warning);
+		color: var(--color-warning-strong);
 	}
 
 	.alert_error {
@@ -150,10 +150,10 @@
 
 	.alert_error .alert__icon {
 		background: color-mix(in srgb, var(--color-danger) 15%, transparent);
-		color: var(--color-danger);
+		color: var(--color-danger-strong);
 	}
 
 	.alert_error :global(h4) {
-		color: var(--color-danger);
+		color: var(--color-danger-strong);
 	}
 </style>

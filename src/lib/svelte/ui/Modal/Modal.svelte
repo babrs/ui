@@ -1,3 +1,19 @@
+<script module>
+	/**
+	 * Блокировка прокрутки страницы общая для всех открытых окон:
+	 * держим счётчик, чтобы закрытие одного окна не разблокировало фон,
+	 * пока открыто другое.
+	 */
+	let openCount = $state(0);
+
+	/** @param {number} delta */
+	export function lockScroll(delta) {
+		if (typeof document === 'undefined') return;
+		openCount = Math.max(0, openCount + delta);
+		document.documentElement.style.overflow = openCount > 0 ? 'hidden' : '';
+	}
+</script>
+
 <script>
 	import Icon from '../Icon/index.js';
 
@@ -38,15 +54,15 @@
 
 		if (open && !element.open) {
 			element.showModal();
-			document.documentElement.style.overflow = 'hidden';
+			lockScroll(1);
 		} else if (!open && element.open) {
 			element.close();
-			document.documentElement.style.overflow = '';
+			lockScroll(-1);
 		}
 	});
 
 	$effect(() => () => {
-		document.documentElement.style.overflow = '';
+		if (dialog?.open) lockScroll(-1);
 	});
 
 	function close() {
@@ -154,10 +170,12 @@
 
 	.modal__header {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-md);
-		padding: var(--space-md) var(--space-lg);
+		min-height: 3.5rem;
+		box-sizing: border-box;
+		padding: 0.5rem var(--space-lg);
 		border-bottom: 1px solid var(--color-border);
 	}
 
@@ -177,9 +195,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 32px;
-		height: 32px;
-		margin: -0.25rem -0.5rem 0 0;
+		width: 2rem;
+		height: 2rem;
+		margin: 0 -0.5rem 0 0;
 		padding: 0;
 		border: none;
 		border-radius: var(--radius-sm);
@@ -202,9 +220,12 @@
 
 	.modal__footer {
 		display: flex;
+		align-items: center;
 		justify-content: flex-end;
-		gap: 0.75rem;
-		padding: var(--space-md) var(--space-lg);
+		gap: var(--space-sm);
+		min-height: 3.5rem;
+		box-sizing: border-box;
+		padding: 0.5rem var(--space-lg);
 		border-top: 1px solid var(--color-border);
 	}
 

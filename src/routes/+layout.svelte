@@ -1,7 +1,7 @@
 <script>
 	import '$lib/css/index.css';
 	import { base } from '$app/paths';
-	import { ToastStack } from '$lib/index.js';
+	import { ConfirmModal, GalleryModal, Toast, stickyDock } from '$lib/index.js';
 	import AppHeader from './__components/AppHeader/index.js';
 	import AppFooter from './__components/AppFooter/index.js';
 
@@ -26,7 +26,13 @@
 	<link rel="icon" href="{base}/favicon.svg" type="image/svg+xml" />
 </svelte:head>
 
-<AppHeader brand="Babrs UI" tagline="единый кит организации" homeHref="{base}/" {navItems} />
+<AppHeader
+	brand="Babrs UI"
+	tagline="единый кит организации"
+	homeHref="{base}/"
+	{navItems}
+	{@attach stickyDock({ offset: 0 })}
+/>
 
 <main>
 	{@render children()}
@@ -41,4 +47,6 @@
 	]}
 />
 
-<ToastStack />
+<Toast />
+<ConfirmModal />
+<GalleryModal />

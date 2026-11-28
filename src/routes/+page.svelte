@@ -10,9 +10,7 @@
 		Chat,
 		ChatBubble,
 		Checkbox,
-		ConfirmModal,
 		Dropdown,
-		GalleryModal,
 		Icon,
 		Input,
 		Modal,
@@ -25,6 +23,8 @@
 		Tabs,
 		Textarea,
 		Tooltip,
+		confirmDialog,
+		gallery,
 		toast
 	} from '$lib/index.js';
 
@@ -68,11 +68,8 @@
 		{ name: 'text', token: '--color-text' }
 	];
 
-	let confirmOpen = $state(false);
 	let formOpen = $state(false);
 	let infoOpen = $state(false);
-	let galleryOpen = $state(false);
-	let galleryIndex = $state(0);
 
 	let name = $state('');
 	let email = $state('почта-без-собаки');
@@ -83,10 +80,35 @@
 	let notifications = $state(true);
 	let personType = $state('personal');
 	let guests = $state(6);
+	let chatTyping = $state(false);
+
+	/** @param {string} text */
+	function sendChatMessage(text) {
+		toast.info('Сообщение отправлено', text, { duration: 2500 });
+		chatTyping = true;
+		setTimeout(() => (chatTyping = false), 1600);
+	}
 	let activeTab = $state('overview');
 	let openAccordion = $state('ai');
 
 	const galleryItems = trips.map((trip) => ({ src: trip.image, alt: trip.title }));
+
+	/** Императивный диалог подтверждения: окно открывается одной строкой из любого места. */
+	async function askDelete() {
+		const { ok } = await confirmDialog({
+			title: 'Удалить маршрут?',
+			message: 'Маршрут исчезнет из подборки вместе с заметками. Действие необратимо.',
+			confirmText: 'Удалить',
+			cancelText: 'Отмена',
+			danger: true
+		});
+		if (ok) toast.success('Маршрут удалён', 'Подборка обновлена');
+	}
+
+	/** @param {number} index */
+	function openGallery(index) {
+		gallery.open(galleryItems, index);
+	}
 
 	function showToast(type) {
 		const copy = {
@@ -228,15 +250,35 @@
 		</div>
 
 		<h3 class="demo-title">Группы кнопок</h3>
-		<ButtonGroup label="Период">
-			<Button variant="outline" size="sm">День</Button>
-			<Button variant="outline" size="sm">Неделя</Button>
-			<Button variant="outline" size="sm">Месяц</Button>
-		</ButtonGroup>
+		<div class="demo-stack">
+			<ButtonGroup label="Период" variant="outline">
+				<Button size="sm">День</Button>
+				<Button size="sm">Неделя</Button>
+				<Button size="sm">Месяц</Button>
+			</ButtonGroup>
+
+			<ButtonGroup label="Выгрузка">
+				<Button size="sm">PDF</Button>
+				<Button size="sm">Excel</Button>
+				<Button size="sm">CSV</Button>
+			</ButtonGroup>
+
+			<ButtonGroup label="Разрешение">
+				<Button variant="ghost" size="sm">День</Button>
+				<Button size="sm">Неделя</Button>
+				<Button variant="ghost" size="sm">Месяц</Button>
+			</ButtonGroup>
+
+			<ButtonGroup label="Период на всю ширину" variant="outline" grow>
+				<Button size="sm">День</Button>
+				<Button size="sm">Неделя</Button>
+				<Button size="sm">Месяц</Button>
+			</ButtonGroup>
+		</div>
 
 		<h3 class="demo-title">Модальные окна</h3>
 		<div class="demo-row">
-			<Button variant="danger" onclick={() => (confirmOpen = true)}>Подтверждение</Button>
+			<Button variant="danger" onclick={askDelete}>Подтверждение</Button>
 			<Button onclick={() => (formOpen = true)}>Форма создания</Button>
 			<Button variant="outline" onclick={() => (infoOpen = true)}>Информационное</Button>
 		</div>
@@ -286,7 +328,11 @@
 				/>
 				<div class="stepper-demo">
 					<span class="field__label">Гостей</span>
-					<Stepper label="Количество гостей" bind:value={guests} min={2} max={12} />
+					<div class="stepper-demo__row">
+						<Stepper label="Количество гостей" bind:value={guests} min={2} max={12} width={220} />
+						<Stepper label="Гости (авто-ширина)" bind:value={guests} min={2} max={12} width="fit-content" />
+					</div>
+					<small class="field__hint">Ширина задаётся пропом width — числом в пикселях или любым CSS-значением. Значение можно ввести вручную.</small>
 				</div>
 			</div>
 		</div>
@@ -355,7 +401,7 @@
 		<p class="muted">Кликните на изображение — откроется лайтбокс на нативном <code>&lt;dialog&gt;</code>.</p>
 		<div class="gallery">
 			{#each trips as trip, index (trip.id)}
-				<button class="gallery__item" type="button" onclick={() => { galleryIndex = index; galleryOpen = true; }}>
+				<button class="gallery__item" type="button" onclick={() => openGallery(index)}>
 					<img src={trip.image} alt={trip.title} loading="lazy" />
 				</button>
 			{/each}
@@ -408,34 +454,23 @@
 		</div>
 
 		<h3 class="demo-title">AI Чат-ассистент</h3>
-		<Chat title="Babrs AI" status="Онлайн" height={300}>
-			<ChatBubble author="ai">
-				Привет! Я ассистент Babrs. Куда вы хотите отправиться?
-			</ChatBubble>
-			<ChatBubble author="user">Хочу посетить Байкал зимой. Сколько стоит?</ChatBubble>
-			<ChatBubble author="ai">
+		<Chat
+			title="Babrs AI"
+			status="Онлайн"
+			height={320}
+			typing={chatTyping}
+			quickActions={['Сколько стоит?', 'Лучшее время', 'Виза']}
+			onsend={sendChatMessage}
+			onquick={(text) => toast.info('Быстрый вопрос', text, { duration: 2500 })}
+		>
+			<ChatBubble role="ai">Привет! Я ассистент Babrs. Куда вы хотите отправиться?</ChatBubble>
+			<ChatBubble role="user">Хочу посетить Байкал зимой. Сколько стоит?</ChatBubble>
+			<ChatBubble role="ai">
 				Зимний тур на Байкал — от 62 000 ₽ на человека. В стоимость входят проживание, трансфер и ледовые экскурсии.
 			</ChatBubble>
-
-			{#snippet footer()}
-				<div class="chat-input">
-					<Input placeholder="Напишите сообщение" aria-label="Сообщение" />
-					<Button iconOnly label="Отправить"><Icon name="send" size={18} /></Button>
-				</div>
-			{/snippet}
 		</Chat>
 	</section>
 </div>
-
-<ConfirmModal
-	bind:open={confirmOpen}
-	title="Удалить маршрут?"
-	message="Вы уверены, что хотите удалить этот маршрут? Это действие нельзя отменить."
-	confirmText="Удалить"
-	cancelText="Отмена"
-	danger
-	onresolve={(detail) => detail.ok && toast.success('Маршрут удалён', 'Действие можно отменить 30 дней')}
-/>
 
 <Modal bind:open={formOpen} title="Новое путешествие" description="Заполните основные параметры поездки." size="lg">
 	<div class="modal-form">
@@ -471,10 +506,6 @@
 		<Button variant="ghost" onclick={() => (infoOpen = false)}>Закрыть</Button>
 	{/snippet}
 </Modal>
-
-{#if galleryOpen}
-	<GalleryModal bind:index={galleryIndex} items={galleryItems} onclose={() => (galleryOpen = false)} />
-{/if}
 
 <style>
 	.hero {
@@ -585,6 +616,24 @@
 		gap: var(--space-sm);
 	}
 
+	.stepper-demo__row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-md);
+	}
+
+	.demo-stack {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-sm);
+	}
+
+	.demo-stack > :global(.button-group_grow) {
+		align-self: stretch;
+	}
+
 	.gallery {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -611,16 +660,6 @@
 
 	.gallery__item:hover img {
 		transform: scale(1.05);
-	}
-
-	.chat-input {
-		display: flex;
-		align-items: flex-end;
-		gap: 0.75rem;
-	}
-
-	.chat-input :global(.field) {
-		flex: 1;
 	}
 
 	.modal-form {

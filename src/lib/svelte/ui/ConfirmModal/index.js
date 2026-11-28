@@ -1,2 +1,1 @@
-export * from './ConfirmModal.svelte';
-export { default } from './ConfirmModal.svelte';
+export { default, confirmDialog } from './ConfirmModal.svelte';

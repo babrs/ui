@@ -14,24 +14,37 @@
 	--color-surface: #ffffff;
 	--color-card: var(--color-surface);
 	--color-text: #2d2a26;
-	--color-text-muted: #7a756f;
+	--color-text-muted: #726d67;
 	--color-border: #e8dfd5;
 	--color-overlay: rgb(45 42 38 / 0.55);
 
 	/* ---------- Акцент ---------- */
-	--color-primary: #e54717;
+	--color-primary: #d13c10;
 	--color-primary-light: #f26a3e;
 	--color-primary-strong: #bd370f;
 	--color-accent: #f26a3e;
 	--color-on-primary: #ffffff;
-	--color-primary-soft: rgb(229 71 23 / 0.08);
-	--color-primary-glow: rgb(229 71 23 / 0.15);
+	--color-primary-soft: rgb(209 60 16 / 0.08);
+	--color-primary-glow: rgb(209 60 16 / 0.15);
 
 	/* ---------- Статусы ---------- */
-	--color-success: #5c9a4d;
+	/* Базовые значения — заливки и иконки. Для текста на светлом фоне
+	   используйте *-strong: они гарантируют контраст ≥ 4.5:1 (WCAG AA). */
+	--color-success: #457a39;
 	--color-warning: #c4882f;
 	--color-info: #4a7eb5;
-	--color-danger: #c94848;
+	--color-danger: #c04141;
+
+	--color-success-strong: #3d6b32;
+	--color-warning-strong: #8a5a10;
+	--color-info-strong: #37628f;
+	--color-danger-strong: #b23a3a;
+
+	/* Цвет текста поверх сплошной заливки статуса */
+	--color-on-success: #ffffff;
+	--color-on-warning: #3a2606;
+	--color-on-info: #ffffff;
+	--color-on-danger: #ffffff;
 
 	--color-success-soft: color-mix(in srgb, var(--color-success) 10%, transparent);
 	--color-success-line: color-mix(in srgb, var(--color-success) 22%, transparent);

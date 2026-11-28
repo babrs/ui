@@ -54,26 +54,26 @@
 
 	.badge_primary {
 		background: var(--color-primary-soft);
-		color: var(--color-primary);
+		color: var(--color-primary-strong);
 	}
 
 	.badge_success {
 		background: var(--color-success-soft);
-		color: var(--color-success);
+		color: var(--color-success-strong);
 	}
 
 	.badge_warning {
 		background: var(--color-warning-soft);
-		color: var(--color-warning);
+		color: var(--color-warning-strong);
 	}
 
 	.badge_info {
 		background: var(--color-info-soft);
-		color: var(--color-info);
+		color: var(--color-info-strong);
 	}
 
 	.badge_danger {
 		background: var(--color-danger-soft);
-		color: var(--color-danger);
+		color: var(--color-danger-strong);
 	}
 </style>

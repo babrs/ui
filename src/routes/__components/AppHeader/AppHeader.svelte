@@ -17,7 +17,7 @@
 	 */
 
 	/** @type {Props} */
-	let { brand = 'Babrs UI', tagline, homeHref = '/', navItems = [] } = $props();
+	let { brand = 'Babrs UI', tagline, homeHref = '/', navItems = [], ...rest } = $props();
 
 	let menuOpen = $state(false);
 
@@ -29,7 +29,7 @@
 	]);
 </script>
 
-<header class="site-header">
+<header class="site-header" {...rest}>
 	<div class="site-header__inner container">
 		<a class="logo" href={homeHref}>
 			<span class="logo__mark" aria-hidden="true"><Icon name="sparkles" size={20} /></span>

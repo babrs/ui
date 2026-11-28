@@ -1,2 +1,1 @@
-export * from './GalleryModal.svelte';
-export { default } from './GalleryModal.svelte';
+export { default, gallery } from './GalleryModal.svelte';

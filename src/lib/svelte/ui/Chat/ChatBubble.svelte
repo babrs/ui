@@ -1,79 +1,78 @@
 <script>
+	import Icon from '../Icon/index.js';
+
 	/**
 	 * @typedef {Object} Props
-	 * @property {'ai' | 'user'} [author] - Автор сообщения
-	 * @property {string} [name] - Подпись автора
-	 * @property {import('svelte').Snippet} children - Текст сообщения
+	 * @property {'ai' | 'user'} [role] - Чья реплика: ассистента (слева) или пользователя (справа)
+	 * @property {string} [name] - Подпись аватара пользователя, по умолчанию «Вы»
+	 * @property {import('svelte').Snippet} [children] - Текст сообщения
 	 */
 
 	/** @type {Props} */
-	let { author = 'ai', name, children } = $props();
+	let { role = 'ai', name = 'Вы', children } = $props();
 </script>
 
-<div class="message message_{author}">
-	<span class="message__avatar" class:message__avatar_ai={author === 'ai'}>
-		{name ?? (author === 'ai' ? 'AI' : 'Я')}
+<div class="chat-message chat-message_{role}">
+	<span class="chat-message__avatar" aria-hidden="true">
+		{#if role === 'ai'}
+			<Icon name="sparkles" size={16} />
+		{:else}
+			{name}
+		{/if}
 	</span>
-	<div class="message__bubble">
+	<div class="chat-message__bubble">
 		{@render children?.()}
 	</div>
 </div>
 
 <style>
-	.message {
+	.chat-message {
 		display: flex;
+		align-items: flex-end;
 		gap: 0.75rem;
 		max-width: 85%;
 	}
 
-	.message_user {
+	.chat-message_user {
 		align-self: flex-end;
 		flex-direction: row-reverse;
 	}
 
-	.message__avatar {
+	.chat-message__avatar {
 		display: flex;
+		flex-shrink: 0;
 		align-items: center;
 		justify-content: center;
 		width: 32px;
 		height: 32px;
 		border-radius: 50%;
 		background: var(--color-bg-alt);
-		font-size: var(--font-size-2xs);
+		color: var(--color-text);
+		font-size: var(--font-size-xs);
 		font-weight: var(--font-weight-semibold);
-		flex-shrink: 0;
 	}
 
-	[data-theme='dark'] .message__avatar {
-		background: var(--color-surface);
-	}
-
-	.message__avatar_ai {
+	.chat-message_ai .chat-message__avatar {
 		background: var(--color-primary);
 		color: var(--color-on-primary);
 	}
 
-	.message__bubble {
-		padding: 0.75rem var(--space-md);
-		border-radius: var(--radius-card);
-		font-size: var(--font-size-base);
-		line-height: 1.45;
+	.chat-message__bubble {
+		padding: 0.75rem 1rem;
+		border-radius: var(--radius-lg);
+		font-size: var(--font-size-sm);
+		line-height: 1.4;
+	}
+
+	.chat-message_ai .chat-message__bubble {
+		border-top-left-radius: 4px;
+		background: var(--color-bg-alt);
 		color: var(--color-text);
 	}
 
-	.message_ai .message__bubble {
-		background: var(--color-bg-alt);
-		border-top-left-radius: var(--radius-xs);
-	}
-
-	[data-theme='dark'] .message_ai .message__bubble {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-	}
-
-	.message_user .message__bubble {
+	.chat-message_user .chat-message__bubble {
+		border-top-right-radius: 4px;
 		background: var(--color-primary);
 		color: var(--color-on-primary);
-		border-top-right-radius: var(--radius-xs);
 	}
 </style>
